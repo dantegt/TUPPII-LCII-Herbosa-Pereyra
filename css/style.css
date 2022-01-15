@@ -3,6 +3,7 @@ html, body {
     box-sizing:content-box;
     margin: 0;
     font-family: 'Inter', sans-serif;
+    background: #384580;
 }
 
 .flex {
@@ -46,6 +47,13 @@ main {
     margin: auto;
 }
 
+.titulo-principal { 
+    color: #fff;
+    font-size: 3em;
+    margin: 1em 0.5em;
+    text-shadow: 1px 1px tomato, 2px 2px tomato, 3px 3px tomato;
+}
+
 /* Peliculas */
 
 .tupeli {
@@ -55,6 +63,7 @@ main {
     border-radius: 1em;
     display: flex;
     flex-direction: row-reverse;
+    background: #fff;
 }
 
 .tupeli-peli {
@@ -110,7 +119,7 @@ main {
 }
 
 .tupeli-imagen img {
-    max-height: 30vh;
+    max-height: 20vh;
 }
 
 .tupeli-promedio {

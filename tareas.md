@@ -17,7 +17,7 @@ __Objetivo:__ Plataforma web para mantener una lista de películas recomendadas 
     - PLUS: Link a trailer de la pelicula, Puntuación promediada
 
 ### Funcionalidades:
-    - Listar ultimas 10 peliculas
+    - Listar ultimas 10 peliculas (Modo público)
     - Publicar o administrar un review
     - EXTRA: Paginado
     - EXTRA: Buscador de peliculas

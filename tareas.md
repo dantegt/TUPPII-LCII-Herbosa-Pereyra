@@ -23,8 +23,15 @@ __Objetivo:__ Plataforma web para mantener una lista de películas recomendadas 
     - EXTRA: Buscador de peliculas
 
 ### Tareas pendientes
-    - Y... todo, te diría xD
 
-    - API: Flask, CRUD, JSON "DB"
-    - FrontEnd: HTML, CSS, Responsive
-    - Vue JS?
+    - API (Flask, CRUD, JSON "DB")
+        - [80%] DB
+        - Flask
+        - CRUD Pelicula + Reseña
+        - Editar Película
+        - Listado de Director
+    - FrontEnd (HTML, CSS, Responsive)
+        - [100%] Inicio
+        - Login
+        - Carga / Edicion de Peliculas
+        - Lista de Peliculas por Director

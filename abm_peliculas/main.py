@@ -13,6 +13,9 @@ db = json.load(data)
 def index():
     return render_template('hello.html')
 
+#
+#        ***   USUARIOS   ***
+#
 
 @app.route("/usuarios", methods=['GET'])
 def retornar_usuarios():
@@ -37,7 +40,8 @@ def alta_usuario():
         next_id = int(db["usuarios"][-1]["id"]) + 1
         nuevo_usuario = {
             "id": next_id,
-            "nombre": data["nombre"]
+            "nombre": data["nombre"],
+            "password": data["password"],
         }
         db["usuarios"].append(nuevo_usuario)
         return jsonify(nuevo_usuario), HTTPStatus.OK
@@ -60,7 +64,7 @@ def editar_usuario():
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-@app.route("/usuario", methods=['DELETE'])
+@app.route("/usuario", methods=['DELETE'])          #No hace falta baja de usuario
 def borrar_usuario():
     # recibir datos por parte del cliente
     data = request.get_json()
@@ -74,6 +78,9 @@ def borrar_usuario():
     # else:
     #     return jsonify({}), HTTPStatus.BAD_REQUEST
 
+#
+#        ***   PELICULAS   ***
+#
 
 @app.route("/peliculas", methods=['GET'])
 def retornar_peliculas():
@@ -90,40 +97,43 @@ def retornar_pelicula(id):
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
+                                                    # revisar
 @app.route("/pelicula", methods=['POST'])
 def alta_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
-    if "usuario" in data and "titulo" in data and "pasos" in data:
+    if "usuario" in data and "titulo" not in data:
         next_id = int(db["recetas"][-1]["id"]) + 1
         db["peliculas"].append({
             "id": next_id,
             "titulo": data["titulo"],
-            "pasos": data["pasos"],
-            "autor": data["usuario"],
+            "anio": data["anio"],
+            "genero": data["genero"],
+            "director": data["director"],
+            "sinopsis": data["sinopsis"],
+            "imagen": data["imagen"],
+            "trailer": data["trailer"],
+            "promedio": data["promedio"],
+            "subidapor": data["subidapor"],
+            "comentarios":data[""],
+
         })
         return jsonify({}), HTTPStatus.OK
     else:
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
-
-@app.route("/pelicula", methods=['POST'])
+                                                    #revisar
+@app.route("/pelicula", methods=['DELETE'])
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
-    # if "usuario" in data and "titulo" in data and "pasos" in data:
-    #     next_id = int(db["recetas"][-1]["id"]) + 1
-    #     db["recetas"].append({
-    #         "id": next_id,
-    #         "titulo": data["titulo"],
-    #         "pasos": data["pasos"],
-    #         "autor": data["usuario"],
-    #     })
-    #     return jsonify({}), HTTPStatus.OK
-    # else:
-    #     return jsonify({}), HTTPStatus.BAD_REQUEST
+    if "pelicula" in data and "comentarios" != [""]:
+         db["peliculas"]["pelicula"].pop()
+         return jsonify({}), HTTPStatus.OK
+    else:
+         return jsonify({}), HTTPStatus.BAD_REQUEST
 
-
+'''
 @app.route("/usuario/<id>/compartidas", methods=['GET'])
 def retornar_usuario_compartidas(id):
     usuario_id = int(id)
@@ -170,6 +180,6 @@ def usuario_descomparte_receta():
         return jsonify({}), HTTPStatus.OK
     else:
         return jsonify({}), HTTPStatus.BAD_REQUEST
-
+'''
 
 app.run()

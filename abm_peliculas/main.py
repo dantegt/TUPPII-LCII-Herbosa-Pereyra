@@ -40,8 +40,8 @@ def alta_usuario():
         next_id = int(db["usuarios"][-1]["id"]) + 1
         nuevo_usuario = {
             "id": next_id,
-            "nombre": ["nombre"],
-            "contrasenia": data["contrasenia"],
+            "nombre": data["nombre"],
+            "password": data["password"],
         }
         db["usuarios"].append(nuevo_usuario)
         return jsonify(nuevo_usuario), HTTPStatus.OK
@@ -128,7 +128,7 @@ def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
     if "pelicula" in data and "comentarios" != [""]:
-         db["peliculas"]["pelicula"].clear()        #clear, remove o pop?
+         db["peliculas"]["pelicula"].pop()
          return jsonify({}), HTTPStatus.OK
     else:
          return jsonify({}), HTTPStatus.BAD_REQUEST
@@ -181,5 +181,5 @@ def usuario_descomparte_receta():
     else:
         return jsonify({}), HTTPStatus.BAD_REQUEST
 '''
-app.run()
 
+app.run()

@@ -144,6 +144,8 @@ main {
 }
 
 
+
+
 @media (max-width: 920px) {
     .top10 {
         flex-direction: column;

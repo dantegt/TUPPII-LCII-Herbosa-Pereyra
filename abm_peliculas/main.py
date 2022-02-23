@@ -82,56 +82,71 @@ def borrar_usuario():
 #        ***   PELICULAS   ***
 #
 
+
 @app.route("/peliculas", methods=['GET'])
 def retornar_peliculas():
     return jsonify(db["peliculas"])
 
 
-@app.route("/peliculas/<id>", methods=['GET'])
-def retornar_pelicula(id):
+@app.route("/peliculas/<titulo>", methods=['GET'])
+def retornar_pelicula(titulo):
     peliculas = db["peliculas"]
-    pelicula_id = int(id)
+    # pelicula_id = int(id)
     for pelicula in peliculas:
-        if pelicula['id'] == pelicula_id:
+        if pelicula['titulo'].lower() == titulo.lower():
             return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-                                                    # revisar
-@app.route("/pelicula", methods=['POST'])
+# revisar
+@app.route("/peliculas", methods=['POST'])
 def alta_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
-    if "usuario" in data and "titulo" not in data:
-        next_id = int(db["recetas"][-1]["id"]) + 1
-        db["peliculas"].append({
-            "id": next_id,
-            "titulo": data["titulo"],
-            "anio": data["anio"],
-            "genero": data["genero"],
-            "director": data["director"],
-            "sinopsis": data["sinopsis"],
-            "imagen": data["imagen"],
-            "trailer": data["trailer"],
-            "promedio": data["promedio"],
-            "subidapor": data["subidapor"],
-            "comentarios":data[""],
-
-        })
-        return jsonify({}), HTTPStatus.OK
+    # Validar data que viene del pedido
+    if "usuario" in data and "titulo" in data:
+        usuarios = db["usuarios"]
+        for usuario in usuarios:
+            # Existe usuario en la db
+            if usuario["usuario"].lower() == data["usuario"].lower():
+                peliculas = db["peliculas"]
+                for pelicula in peliculas:
+                    # Pelicula ya existe en la db?
+                    if pelicula["titulo"] == data["titulo"]:
+                        mensaje = f"La pelicula ya existe en la base de datos, {data['usuario']}"
+                        return jsonify(mensaje), HTTPStatus.BAD_REQUEST
+                    else:
+                        next_id = int(db["peliculas"][-1]["id"]) + 1
+                        pelicula_nueva = {
+                            "id": next_id,
+                            "titulo": data["titulo"],
+                            # "anio": data["anio"],
+                            # "genero": data["genero"],
+                            # "director": data["director"],
+                            # "sinopsis": data["sinopsis"],
+                            # "imagen": data["imagen"],
+                            # "trailer": data["trailer"],
+                            # "promedio": data["promedio"],
+                            # "subidapor": data["subidapor"],
+                            # "comentarios": data[""],
+                        }
+                        db["peliculas"].append(pelicula_nueva)
+                        return jsonify(pelicula_nueva), HTTPStatus.OK
     else:
-        return jsonify({}), HTTPStatus.BAD_REQUEST
+        return jsonify("Falta usuario o titulo"), HTTPStatus.BAD_REQUEST
 
-                                                    #revisar
+
+# revisar
 @app.route("/pelicula", methods=['DELETE'])
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
     if "pelicula" in data and "comentarios" != [""]:
-         db["peliculas"]["pelicula"].pop()
-         return jsonify({}), HTTPStatus.OK
+        db["peliculas"]["pelicula"].pop()
+        return jsonify({}), HTTPStatus.OK
     else:
-         return jsonify({}), HTTPStatus.BAD_REQUEST
+        return jsonify({}), HTTPStatus.BAD_REQUEST
+
 
 '''
 @app.route("/usuario/<id>/compartidas", methods=['GET'])

@@ -10,8 +10,8 @@ __Objetivo:__ Plataforma web para mantener una lista de películas recomendadas 
     - Login de usuario
     - ABM Pelicula
     - ABM Review
-    - Lista de Directores
-    - Lista de Géneros
+    - Lista de Directores       /directores  /api/directores
+    - Lista de Géneros          /api/generos
     - Lista de Peliculas por director
     - Lista de peliculas con Portada
     - PLUS: Link a trailer de la pelicula, Puntuación promediada

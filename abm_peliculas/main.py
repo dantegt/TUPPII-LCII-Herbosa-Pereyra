@@ -13,6 +13,7 @@ db = json.load(data)
 def index():
     return render_template('hello.html')
 
+
 #
 #        ***   USUARIOS   ***
 #
@@ -30,6 +31,15 @@ def retornar_usuario(id):
         if usuario["id"] == usuario_id:
             return jsonify(usuario), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
+
+#funcion interna, no flask
+
+def existe_usuario(nombre):
+    usuarios = db["usuarios"]
+    for usuario in usuarios:
+        if usuario["usuario"].lower() == nombre.lower():
+            return True
+    return False
 
 
 @app.route("/usuario", methods=['POST'])
@@ -64,7 +74,7 @@ def editar_usuario():
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-@app.route("/usuario", methods=['DELETE'])          #No hace falta baja de usuario
+@app.route("/usuario", methods=['DELETE'])  # No hace falta baja de usuario
 def borrar_usuario():
     # recibir datos por parte del cliente
     data = request.get_json()
@@ -77,6 +87,7 @@ def borrar_usuario():
     #     return jsonify({}), HTTPStatus.OK
     # else:
     #     return jsonify({}), HTTPStatus.BAD_REQUEST
+
 
 #
 #        ***   PELICULAS   ***
@@ -97,6 +108,13 @@ def retornar_pelicula(titulo):
             return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
+def existe_pelicula(titulo):
+    peliculas = db["peliculas"]
+    for pelicula in peliculas:
+        if pelicula['titulo'].lower() == titulo.lower():
+            return True
+    return False
+
 
 # revisar
 @app.route("/peliculas", methods=['POST'])
@@ -104,36 +122,35 @@ def alta_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
     # Validar data que viene del pedido
-    if "usuario" in data and "titulo" in data:
-        usuarios = db["usuarios"]
-        for usuario in usuarios:
-            # Existe usuario en la db
-            if usuario["usuario"].lower() == data["usuario"].lower():
-                peliculas = db["peliculas"]
-                for pelicula in peliculas:
-                    # Pelicula ya existe en la db?
-                    if pelicula["titulo"] == data["titulo"]:
-                        mensaje = f"La pelicula ya existe en la base de datos, {data['usuario']}"
-                        return jsonify(mensaje), HTTPStatus.BAD_REQUEST
-                    else:
-                        next_id = int(db["peliculas"][-1]["id"]) + 1
-                        pelicula_nueva = {
-                            "id": next_id,
-                            "titulo": data["titulo"],
-                            # "anio": data["anio"],
-                            # "genero": data["genero"],
-                            # "director": data["director"],
-                            # "sinopsis": data["sinopsis"],
-                            # "imagen": data["imagen"],
-                            # "trailer": data["trailer"],
-                            # "promedio": data["promedio"],
-                            # "subidapor": data["subidapor"],
-                            # "comentarios": data[""],
-                        }
-                        db["peliculas"].append(pelicula_nueva)
-                        return jsonify(pelicula_nueva), HTTPStatus.OK
-    else:
+
+    # data.keys() >= {"usuario", "titulo"}  retorna true si hay coincidencia
+
+    campos = {"usuario", "titulo"}
+    if data.keys() < campos:
         return jsonify("Falta usuario o titulo"), HTTPStatus.BAD_REQUEST
+
+    if not existe_usuario(data["usuario"]):
+        return jsonify("Quien te conoce papa."), HTTPStatus.BAD_REQUEST
+
+    if existe_pelicula(data["titulo"]):
+        return jsonify("La pelicula ya fue cargada por otro usuario."), HTTPStatus.BAD_REQUEST
+
+    next_id = int(db["peliculas"][-1]["id"]) + 1
+    pelicula_nueva = {
+        "id": next_id,
+        "titulo": data["titulo"],
+        # "anio": data["anio"],
+        # "genero": data["genero"],
+        # "director": data["director"],
+        # "sinopsis": data["sinopsis"],
+        # "imagen": data["imagen"],
+        # "trailer": data["trailer"],
+        # "promedio": data["promedio"],
+        # "subidapor": data["subidapor"],
+        # "comentarios": data[""],
+    }
+    db["peliculas"].append(pelicula_nueva)
+    return jsonify(pelicula_nueva), HTTPStatus.OK
 
 
 # revisar

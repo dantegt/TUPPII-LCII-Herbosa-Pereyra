@@ -164,6 +164,38 @@ def borrar_pelicula():
     else:
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
+@app.route("/directores", methods=['GET'])
+def retornar_directores():
+    lista_directores = []
+    #peliculas = (db["peliculas"])
+    for peliculas in db["peliculas"]:
+        for pelicula in db["peliculas"]:
+            lista_directores = (pelicula["director"])
+        return lista_directores
+    ''' Faltaria incorporar:
+        director = (pelicula["director"])
+            lista_directores.append(director)
+        return lista_directores'''
+
+    '''Codigo que funciona si lo ejecutas a parte 
+    importando la base de datos:
+    
+    def retornar_directores():
+        peliculas = db["peliculas"]
+        lista_directores = []
+        # peliculas = (db["peliculas"])
+        for pelicula in db["peliculas"]:
+            director = (pelicula["director"])
+            lista_directores.append(director)
+        print(lista_directores)
+    return 0
+
+print(retornar_directores())
+     '''
+
+
+
+
 
 '''
 @app.route("/usuario/<id>/compartidas", methods=['GET'])

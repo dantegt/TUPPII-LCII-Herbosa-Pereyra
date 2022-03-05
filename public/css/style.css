@@ -19,6 +19,20 @@ html, body {
     background: #384580;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+  
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
+
 .flex {
     display: flex;
 }
@@ -107,10 +121,17 @@ main {
     color: #fff;
     font-size: 2em;
     margin: 0.5em;
+    width: 100%;
     text-shadow: 1px 1px tomato, 2px 2px tomato, 3px 3px tomato;
 }
 
 /* Peliculas */
+
+.top10 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
 .tupeli {
     border: 1px solid #ddd;
@@ -120,6 +141,8 @@ main {
     display: flex;
     flex-direction: row-reverse;
     background: #fff;
+    box-sizing: border-box;
+    z-index: 1;
 }
 
 .tupeli-peli-review {
@@ -128,6 +151,7 @@ main {
 
 .tupeli-peli {
     margin-left: 1em;
+    z-index: -1;
 }
 
 .tupeli-titulo {
@@ -159,9 +183,11 @@ main {
 
 .tupeli-review {
     flex-wrap: wrap;
+    margin-left: 1em;
 }
 
 .tupeli-comentario {
+    padding: 1em 0;
     font-size: 1.5em;
     font-style: italic;
     font-family: 'Arvo', sans-serif;
@@ -183,13 +209,21 @@ main {
     margin-left: 1em;
 }
 
+.tupeli-imagen {
+    margin: -1em 0 -1em -1em;
+}
+
 .tupeli-imagen img {
-    max-height: 30vh;
-    max-width: 10vh;
+    height: 100%;
+    width: 10vh;
+    object-fit: cover;
+    border-radius: 0.5em 0 0 0.5em;
 }
 
 .tupeli-promedio {
-    text-align: center;
+    display: inline-block;
+    font-size: .7em;
+    filter: contrast(0);
 }
 
 .pie {
@@ -210,11 +244,7 @@ main {
 }
 
 
-@media (min-width: 920px) {
-    .top10 {
-        flex-direction: column;
-    }
-
+@media (min-width: 720px) {
     .header {
         flex-direction:row;
         justify-content: space-between;
@@ -265,13 +295,18 @@ main {
 
     .titulo-principal { 
         font-size: 3em;
-        margin: 1em 0.5em;
+        margin: 1em .5em .5em;
     }
 
     .tupeli {
         padding: 2em;
         margin: 1em;
         border-radius: 1em;
+        width: 45%;
+    }
+
+    .tupeli-peli-review {
+        flex-direction: column-reverse;
     }
 
     .tupeli-review {
@@ -281,12 +316,18 @@ main {
     }
 
     .tupeli-comentario {
-        text-align: right;
-        padding: 1em;
+        padding: .5em;
+    }
+
+    .tupeli-imagen {
+        margin: 0;
     }
 
     .tupeli-imagen img {
-        max-width: initial;
+        height: initial;
+        width: 10vw;
+        border-radius: 0.5em;
+        box-shadow: 1px 10px 10px -10px;
     }
 
   }

@@ -75,13 +75,14 @@ html, body {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: 5;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transform: translateX(100%);
     opacity: 0;
+    transform: translateX(100%);
     transition: all .5s ease-in-out;
 }
 

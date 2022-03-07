@@ -171,12 +171,8 @@ def retornar_directores():
 @app.route("/director/<id>", methods=['GET'])
 def retornar_pelicula_director(id):
     id_director = int(id)
-#    peliculas_director = [pelicula for pelicula in db["peliculas"] if pelicula["director_id"] == id_director]
-
-#    for pelicula in db["peliculas"]:
- #       if pelicula["director_id"] == id_director:
-  #          peliculas_director.append(pelicula["titulo"])
-    return peliculas_director, HTTPStatus.OK
+    peliculas_director = [pelicula["titulo"] for pelicula in db["peliculas"] if pelicula["id_director"] == id_director]
+    return jsonify(peliculas_director), HTTPStatus.OK
 
 
 

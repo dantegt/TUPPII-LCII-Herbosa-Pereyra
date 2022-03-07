@@ -36,13 +36,28 @@
         "genero_1": "Ciencia Ficción",
         "genero_2": "",
         "genero_3": "",
-        "id_director": "Denis Villeneuve",
+        "id_director": 3,
+        "sinopsis": "Característica adaptación de la novela de ciencia ficción de Frank Herbert sobre el hijo de una familia noble a quien se le ha confiado la protección del activo más valioso y el elemento más vital de la galaxia.",
+        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1TrP258UMWJi9MICqYW3o7q1dQE7wCnYNdq6hooH6LKA6-L20",
+        "trailer": "https://www.youtube.com/watch?v=laO2SXf2tg8",
+        "promedio": 4.3,
+        "subidapor": 1
+      },
+      {
+        "id": 3,
+        "titulo": "Dune, la venganza de la duna",
+        "anio": 2021,
+        "genero_1": "Ciencia Ficción",
+        "genero_2": "",
+        "genero_3": "",
+        "id_director": 3,
         "sinopsis": "Característica adaptación de la novela de ciencia ficción de Frank Herbert sobre el hijo de una familia noble a quien se le ha confiado la protección del activo más valioso y el elemento más vital de la galaxia.",
         "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1TrP258UMWJi9MICqYW3o7q1dQE7wCnYNdq6hooH6LKA6-L20",
         "trailer": "https://www.youtube.com/watch?v=laO2SXf2tg8",
         "promedio": 4.3,
         "subidapor": 1
       }
+
     ],
     "usuarios": [
       {

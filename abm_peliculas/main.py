@@ -166,13 +166,27 @@ def borrar_pelicula():
 
 @app.route("/directores", methods=['GET'])
 def retornar_directores():
-    lista_directores = []
+    return jsonify(db["directores"])
+
+@app.route("/director/<id>", methods=['GET'])
+def retornar_pelicula_director(id):
+    id_director = int(id)
+#    peliculas_director = [pelicula for pelicula in db["peliculas"] if pelicula["director_id"] == id_director]
+
+#    for pelicula in db["peliculas"]:
+ #       if pelicula["director_id"] == id_director:
+  #          peliculas_director.append(pelicula["titulo"])
+    return peliculas_director, HTTPStatus.OK
+
+
+
+    '''lista_directores = []
     #peliculas = (db["peliculas"])
     for peliculas in db["peliculas"]:
         for pelicula in db["peliculas"]:
             lista_directores = (pelicula["director"])
         return lista_directores
-    ''' Faltaria incorporar:
+     Faltaria incorporar:
         director = (pelicula["director"])
             lista_directores.append(director)
         return lista_directores'''

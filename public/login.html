@@ -89,16 +89,14 @@
                 usuario: campoUsuario,
                 contrasenia: campoPassword,
             }
+            
             let requestOptions = {
                 method: 'POST',
                 mode: 'cors', 
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'text/plain'
-                },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
-            
             };
+
             fetch('http://127.0.0.1:5000/api/login', requestOptions)
                 .then( resp => resp.json())
                 .then( datos => {

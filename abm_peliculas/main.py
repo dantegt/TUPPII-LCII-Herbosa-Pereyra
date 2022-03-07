@@ -1,9 +1,11 @@
 from http import HTTPStatus
 from flask import Flask, jsonify, request, render_template
+from flask_cors import CORS
 import json
 
 app = Flask(__name__, template_folder='templates')
 app.config['JSON_AS_ASCII'] = False
+CORS(app)
 
 data = open("db.json")
 db = json.load(data)
@@ -11,7 +13,11 @@ db = json.load(data)
 
 @app.route('/')
 def index():
-    return render_template('hello.html')
+    return render_template('index.html')
+
+@app.route('/ingresar')
+def ingresar():
+    return render_template('login.html')
 
 
 #
@@ -174,12 +180,12 @@ def retornar_pelicula_director(id):
     return jsonify(peliculas_director), HTTPStatus.OK
 
 
-@app.route("/api/login", methods=['POST','OPTIONS'])
+@app.route("/api/login", methods=['POST'])
 def validar_login():
     data = request.get_json()
     print(data)
     print(request)
-    campos = {"usuario", "password"}
+    #campos = {"usuario", "contrasenia"}
     #if data.keys() < campos:
     #    return jsonify("Faltan datos"), HTTPStatus.BAD_REQUEST
 

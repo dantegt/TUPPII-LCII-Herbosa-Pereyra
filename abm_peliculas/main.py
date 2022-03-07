@@ -122,7 +122,6 @@ def alta_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
     # Validar data que viene del pedido
-
     # data.keys() >= {"usuario", "titulo"}  retorna true si hay coincidencia
 
     campos = {"usuario", "titulo"}
@@ -175,85 +174,21 @@ def retornar_pelicula_director(id):
     return jsonify(peliculas_director), HTTPStatus.OK
 
 
-
-    '''lista_directores = []
-    #peliculas = (db["peliculas"])
-    for peliculas in db["peliculas"]:
-        for pelicula in db["peliculas"]:
-            lista_directores = (pelicula["director"])
-        return lista_directores
-     Faltaria incorporar:
-        director = (pelicula["director"])
-            lista_directores.append(director)
-        return lista_directores'''
-
-    '''Codigo que funciona si lo ejecutas a parte 
-    importando la base de datos:
-    
-    def retornar_directores():
-        peliculas = db["peliculas"]
-        lista_directores = []
-        # peliculas = (db["peliculas"])
-        for pelicula in db["peliculas"]:
-            director = (pelicula["director"])
-            lista_directores.append(director)
-        print(lista_directores)
-    return 0
-
-print(retornar_directores())
-     '''
-
-
-
-
-
-'''
-@app.route("/usuario/<id>/compartidas", methods=['GET'])
-def retornar_usuario_compartidas(id):
-    usuario_id = int(id)
-    compartidas = db["compartidas"]
-    comp_user = [c for c in compartidas if c["user"] == usuario_id]
-    return jsonify(comp_user), HTTPStatus.OK
-
-
-@app.route("/compartir", methods=['POST'])
-def usuario_comparte_receta():
-    # recibir datos por parte del cliente
+@app.route("/api/login", methods=['POST','OPTIONS'])
+def validar_login():
     data = request.get_json()
-    if "usuario_id" in data and "receta_id" in data:
-        usuario_id = int(data["usuario_id"])
-        receta_id = int(data["receta_id"])
-        compartidas = db["compartidas"]
-        existe = [c
-                  for c in compartidas
-                  if c["user"] == usuario_id and c["receta"] == receta_id]
-        if not existe:
-            db["compartidas"].append({
-                "user": usuario_id,
-                "receta": receta_id
-            })
-        else:
-            return jsonify({}), HTTPStatus.BAD_REQUEST
-        return jsonify({}), HTTPStatus.OK
-    else:
-        return jsonify({}), HTTPStatus.BAD_REQUEST
+    print(data)
+    print(request)
+    campos = {"usuario", "password"}
+    #if data.keys() < campos:
+    #    return jsonify("Faltan datos"), HTTPStatus.BAD_REQUEST
+
+    for usuario in db["usuarios"]:
+        if usuario["usuario"].lower() == data["usuario"].lower():
+            if usuario["contrasenia"] == data["contrasenia"]:
+                return jsonify(True), HTTPStatus.OK
+    return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-@app.route("/descompartir", methods=['DELETE'])
-def usuario_descomparte_receta():
-    # recibir datos por parte del cliente
-    data = request.get_json()
-    if "usuario_id" in data and "pelicula_id" in data:
-        usuario_id = int(data["usuario_id"])
-        pelicula_id = int(data["pelicula_id"])
-        compartidas = db["compartidas"]
-        db["compartidas"] = [c
-                             for c in compartidas
-                             if not (c["user"] == usuario_id and c["pelicula"] == pelicula_id)]
-
-        return jsonify({}), HTTPStatus.OK
-    else:
-        return jsonify({}), HTTPStatus.BAD_REQUEST
-'''
 
 app.run()

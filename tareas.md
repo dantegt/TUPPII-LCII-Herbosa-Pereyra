@@ -7,12 +7,12 @@ __Objetivo:__ Plataforma web para mantener una lista de películas recomendadas 
     - Review
 
 ### Acciones
-    - Login de usuario
-    - ABM Pelicula
+    - Login de usuario - ok 
+    - ABM Pelicula  - ok
     - ABM Review
-    - Lista de Directores
-    - Lista de Géneros
-    - Lista de Peliculas por director
+    - Lista de Directores       /directores  /api/directores - ok
+    - Lista de Géneros          /api/generos - ok
+    - Lista de Peliculas por director - ok 
     - Lista de peliculas con Portada
     - PLUS: Link a trailer de la pelicula, Puntuación promediada
 
@@ -29,9 +29,17 @@ __Objetivo:__ Plataforma web para mantener una lista de películas recomendadas 
         - Flask
         - CRUD Pelicula + Reseña
         - Editar Película
-        - Listado de Director
+                se puede editar datos de peliculas, no comentarios de otros usuarios
+                usuario puede eliminar pelicula si no tiene comentarios
+                invitado no puede editar/eliminar nada.                
+
+        - Listado de directores
+        - Listado de generos (en la carga los generos se deben seleccionar de una lista pre armada por lo uqe entiendo)
+        - Listado de peliculas por director
+        
     - FrontEnd (HTML, CSS, Responsive)
         - [100%] Inicio
         - Login
         - Carga / Edicion de Peliculas
         - Lista de Peliculas por Director
+        - Modo publico: muestra ultimas 10 peliculas listadas

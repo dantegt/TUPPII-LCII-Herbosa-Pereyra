@@ -29,15 +29,16 @@
             
                 <div id="contenedorcentrado">
                     <div id="login">
-                        <form id="loginform">
+                        <div id="errorLogin"></div>
+                        <form id="loginform" method="post">
                             <label for="usuario">Usuario</label>
                             <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
                             
                             <label for="password">Contraseña</label>
                             <input id="password" type="password" placeholder="Contraseña" name="password" required>
                             
-                            <button type="submit" title="Ingresar" name="Ingresar">Login</button>
                         </form>
+                        <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
                         
                     </div>
                     <div id="derecho">
@@ -68,9 +69,65 @@
         </div>
         <div class="columna">
             <h3 class="titulo">Creado con 💪 por:</h3>
-            <a href="https://www.instagram.com/ezeeherbosa" target="_blank" class="link">Ezequiel Herbosa</a>
-            <a href="https://www.instagram.com/dante_maw" target="_blank" class="link">Dante Pereyra</a>
+            <a href="https://www.linkedin.com/in/ezequiel-herbosa/" target="_blank">Ezequiel Herbosa</a>
+            <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
         </div>
     </footer>
+   
+    <script>
+
+
+        
+
+        let botonEnviar = document.getElementById('enviar');
+        
+       
+
+        botonEnviar.addEventListener('click' , evento =>{
+
+            let campoUsuario = document.getElementById('usuario').value;
+            let campoPassword = document.getElementById('password').value;
+            let campoError = document.getElementById('errorLogin');
+            
+            let data = {
+                usuario: campoUsuario,
+                contrasenia: campoPassword,
+            }
+            
+            let requestOptions = {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            };
+
+            fetch('http://127.0.0.1:5000/api/login', requestOptions)
+                .then( resp => resp.json())
+                .then( validado => {
+                    console.log(validado);
+                    
+                    
+                    if (validado){
+                        console.log("usuario registrado");
+                        campoError.innerHTML = "";
+                        let expiracion = new Date();
+                        expiracion.setDate(expiracion.getDate() + 1);
+                        document.cookie =`usuario=${validado.usuario};expires=${expiracion}`
+                        document.cookie =`nombre=${validado.nombre};expires=${expiracion}`
+                        document.cookie =`id=${validado.id};expires=${expiracion}`
+                        document.cookie =`validado=true;expires=${expiracion}`
+                        window.location = "/"; // redirecciona a otra pag
+                    } else{
+                        console.log("error de login");
+                        campoError.innerHTML = "Error en el ingreso";
+                    }
+
+
+                })
+            
+        })
+
+    </script>
+
 </body>
 </html>

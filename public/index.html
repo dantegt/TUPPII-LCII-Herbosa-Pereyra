@@ -21,10 +21,10 @@
         
         <nav class="header-nav" id="navigation">
             <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
-            <a href="#" class="link">Reseñas</a>
-            <a href="#" class="link">Directores</a>
-            <a href="#" class="link">Peliculas</a>
-            <a href="#" class="link">Ingresar</a>
+            <a href="/" class="link">Inicio</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+      
         </nav>
         <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
     </header>
@@ -118,8 +118,8 @@
         </div>
         <div class="columna">
             <h3 class="titulo">Creado con 💪 por:</h3>
-            <a href="##" class="link">Ezequiel Herbosa</a>
-            <a href="" class="link">Dante Pereyra</a>
+            <a href="https://www.linkedin.com/in/ezequiel-herbosa/" target="_blank">Ezequiel Herbosa</a>
+            <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
         </div>
     </footer>
 
@@ -156,3 +156,16 @@
     </script>
 </body>
 </html>
+
+
+<script>
+    let cookies = document.cookie
+    let logueado = cookies.includes("usuario") && cookies.includes("validado=true")
+    const nav = document.getElementById("navigation")
+
+    if (logueado) {
+        nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar Pelicula</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
+    } else {
+        nav.innerHTML += '<a href="/ingresar" class="link" id="login">Ingresar</a>'
+    }
+</script>

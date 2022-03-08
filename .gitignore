@@ -64,3 +64,5 @@ node_modules/
 
 # dotenv environment variables file
 .env
+abm_peliculas/.idea/workspace.xml
+Flask/.idea

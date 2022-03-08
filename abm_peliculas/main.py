@@ -173,11 +173,12 @@ def validar_login():
     #campos = {"usuario", "contrasenia"}
     #if data.keys() < campos:
     #    return jsonify("Faltan datos"), HTTPStatus.BAD_REQUEST
-
+    
     for usuario in db["usuarios"]:
         if usuario["usuario"].lower() == data["usuario"].lower():
             if usuario["contrasenia"] == data["contrasenia"]:
-                return jsonify(True), HTTPStatus.OK
+                user = {key: val for key, val in usuario.items() if key not in ["contrasenia"]}
+                return jsonify(user), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
 
 

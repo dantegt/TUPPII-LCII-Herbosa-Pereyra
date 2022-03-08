@@ -77,7 +77,7 @@
     <script>
 
 
-        window.location = "/"; // redirecciona a otra pag
+        
 
         let botonEnviar = document.getElementById('enviar');
         
@@ -112,9 +112,11 @@
                         campoError.innerHTML = "";
                         let expiracion = new Date();
                         expiracion.setDate(expiracion.getDate() + 1);
-                        document.cookie =`username=${campoUsuario};expires=${expiracion}`
-                        document.cookie = "usuario=" + campoUsuario
-                        document.cookie = "validado=true"
+                        document.cookie =`usuario=${validado.usuario};expires=${expiracion}`
+                        document.cookie =`nombre=${validado.nombre};expires=${expiracion}`
+                        document.cookie =`id=${validado.id};expires=${expiracion}`
+                        document.cookie =`validado=true;expires=${expiracion}`
+                        window.location = "/"; // redirecciona a otra pag
                     } else{
                         console.log("error de login");
                         campoError.innerHTML = "Error en el ingreso";
@@ -123,9 +125,6 @@
 
                 })
             
-                
-            
-        
         })
 
     </script>

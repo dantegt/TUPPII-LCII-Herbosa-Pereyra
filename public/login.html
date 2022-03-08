@@ -29,6 +29,7 @@
             
                 <div id="contenedorcentrado">
                     <div id="login">
+                        <div id="errorLogin"></div>
                         <form id="loginform" method="post">
                             <label for="usuario">Usuario</label>
                             <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
@@ -76,15 +77,18 @@
     <script>
 
 
-        //window.location = "success.html"; // redirecciona a otra pag
+        window.location = "/"; // redirecciona a otra pag
 
         let botonEnviar = document.getElementById('enviar');
+        
+       
 
         botonEnviar.addEventListener('click' , evento =>{
 
             let campoUsuario = document.getElementById('usuario').value;
             let campoPassword = document.getElementById('password').value;
-
+            let campoError = document.getElementById('errorLogin');
+            
             let data = {
                 usuario: campoUsuario,
                 contrasenia: campoPassword,
@@ -99,9 +103,29 @@
 
             fetch('http://127.0.0.1:5000/api/login', requestOptions)
                 .then( resp => resp.json())
-                .then( datos => {
-                    console.log(datos);
+                .then( validado => {
+                    console.log(validado);
+                    
+                    
+                    if (validado){
+                        console.log("usuario registrado");
+                        campoError.innerHTML = "";
+                        let expiracion = new Date();
+                        expiracion.setDate(expiracion.getDate() + 1);
+                        document.cookie =`username=${campoUsuario};expires=${expiracion}`
+                        document.cookie = "usuario=" + campoUsuario
+                        document.cookie = "validado=true"
+                    } else{
+                        console.log("error de login");
+                        campoError.innerHTML = "Error en el ingreso";
+                    }
+
+
                 })
+            
+                
+            
+        
         })
 
     </script>

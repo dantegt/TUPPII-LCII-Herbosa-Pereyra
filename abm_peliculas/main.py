@@ -80,21 +80,6 @@ def editar_usuario():
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-@app.route("/usuario", methods=['DELETE'])  # No hace falta baja de usuario
-def borrar_usuario():
-    # recibir datos por parte del cliente
-    data = request.get_json()
-    # if "nombre" in data:
-    #     next_id = int(db["usuarios"][-1]["id"]) + 1
-    #     db["usuarios"].append({
-    #         "id": next_id,
-    #         "nombre": data["nombre"]
-    #     })
-    #     return jsonify({}), HTTPStatus.OK
-    # else:
-    #     return jsonify({}), HTTPStatus.BAD_REQUEST
-
-
 #
 #        ***   PELICULAS   ***
 #
@@ -193,8 +178,8 @@ def validar_login():
         if usuario["usuario"].lower() == data["usuario"].lower():
             if usuario["contrasenia"] == data["contrasenia"]:
                 return jsonify(True), HTTPStatus.OK
-    return jsonify({}), HTTPStatus.BAD_REQUEST
+    return jsonify(False), HTTPStatus.OK
 
 
 
-app.run()
+app.run(debug=True)

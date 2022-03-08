@@ -22,9 +22,9 @@
         <nav class="header-nav" id="navigation">
             <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
             <a href="/" class="link">Inicio</a>
-            <a href="/directores.html" class="link">Directores</a>
-            <a href="/peliculas.html" class="link">Peliculas</a>
-            <a href="/login.html" class="link">Ingresar</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+      
         </nav>
     </header>
     <main class="top10">
@@ -130,3 +130,16 @@
     </footer>
 </body>
 </html>
+
+
+<script>
+    let cookies = document.cookie
+    let logueado = cookies.includes("usuario") && cookies.includes("validado=true")
+    const nav = document.getElementById("navigation")
+
+    if (logueado) {
+        nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar Pelicula</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
+    } else {
+        nav.innerHTML += '<a href="/ingresar" class="link" id="login">Ingresar</a>'
+    }
+</script>

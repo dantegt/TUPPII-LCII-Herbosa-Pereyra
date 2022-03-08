@@ -19,6 +19,23 @@ def index():
 def ingresar():
     return render_template('login.html')
 
+@app.route('/api')
+def api_doc():
+    return render_template('api_doc.html')
+
+@app.route('/directores')
+def directores():
+    return render_template('directores.html')
+
+@app.route('/peliculas')
+def api_peliculas():
+    return render_template('peliculas.html')
+
+@app.route('/agregar')
+def api_agregar():
+    return render_template('agregar.html')
+
+
 
 #
 #        ***   USUARIOS   ***

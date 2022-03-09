@@ -20,8 +20,8 @@ def ingresar():
     return render_template('login.html')
 
 @app.route('/api')
-def api_doc():
-    return render_template('api_doc.html')
+def api_docs():
+    return render_template('api_docs.html')
 
 @app.route('/directores')
 def directores():
@@ -184,20 +184,13 @@ def retornar_pelicula_director(id):
 
 @app.route("/api/login", methods=['POST'])
 def validar_login():
-    data = request.get_json()
-    print(data)
-    print(request)
-    #campos = {"usuario", "contrasenia"}
-    #if data.keys() < campos:
-    #    return jsonify("Faltan datos"), HTTPStatus.BAD_REQUEST
-    
+    data = request.get_json() 
     for usuario in db["usuarios"]:
         if usuario["usuario"].lower() == data["usuario"].lower():
             if usuario["contrasenia"] == data["contrasenia"]:
                 user = {key: val for key, val in usuario.items() if key not in ["contrasenia"]}
                 return jsonify(user), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
-
 
 
 app.run(debug=True)

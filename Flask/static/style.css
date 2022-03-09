@@ -1,12 +1,12 @@
 /* Iconos */
-@import '../font/typicons.css';
+@import 'static/font/typicons.css';
 @font-face {
     font-family: 'typicons';
-    src: url("path/to/typicons.eot");
-    src: url("path/to/typicons.eot?#iefix") format('embedded-opentype'),
-         url("path/to/typicons.woff") format('woff'),
-         url("path/to/typicons.ttf") format('truetype'),
-         url("path/to/typicons.svg#typicons") format('svg');
+    src: url("static/font/typicons.eot");
+    src: url("static/font/typicons.eot?#iefix") format('embedded-opentype'),
+         url("static/font/typicons.woff") format('woff'),
+         url("static/font/typicons.ttf") format('truetype'),
+         url("static/font/typicons.svg#typicons") format('svg');
     font-weight: normal;
     font-style: normal;
   }
@@ -60,7 +60,7 @@ html, body {
     margin: 0;
     padding-left: 1.5em;
     font-size: 1.5em;
-    background: url(../favicon.png) no-repeat;
+    background: url(static/favicon.png) no-repeat;
     background-size: contain;
 }
 

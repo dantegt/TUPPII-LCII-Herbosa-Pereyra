@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
@@ -108,9 +108,9 @@
     <footer class="pie">
         <div class="columna">
             <h3 class="titulo">TUPeli.tk</h3>
-            <a href="#" class="link">Top 10 reviews</a>
-            <a href="#" class="link">Directores</a>
-            <a href="#" class="link">Peliculas</a>
+            <a href="/" class="link">Top 10 reviews</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
         </div>
         <div class="columna">
             <h3 class="titulo">Escribinos!</h3>
@@ -136,7 +136,7 @@
                 <div class="tupeli-review">REVIEW</div>
             </div>
             <div class="tupeli-imagen-promedio">
-                <div class="tupeli-imagen"><img src="./images/default.png" alt="TITULO poster" srcset=""></div>
+                <div class="tupeli-imagen"><img src="{{ url_for('static', filename='default.png') }}" alt="TITULO poster" srcset=""></div>
                 <div class="tupeli-promedio-stars">
                     <div class="tupeli-stars">STARS</div>
                     <div class="tupeli-promedio">PROMEDIO</div>
@@ -154,18 +154,16 @@
         }
         
     </script>
+    <script>
+        let cookies = document.cookie
+        let logueado = cookies.includes("usuario") && cookies.includes("validado=true")
+        const nav = document.getElementById("navigation")
+    
+        if (logueado) {
+            nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar Pelicula</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
+        } else {
+            nav.innerHTML += '<a href="/ingresar" class="link" id="login">Ingresar</a>'
+        }
+    </script>
 </body>
 </html>
-
-
-<script>
-    let cookies = document.cookie
-    let logueado = cookies.includes("usuario") && cookies.includes("validado=true")
-    const nav = document.getElementById("navigation")
-
-    if (logueado) {
-        nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar Pelicula</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
-    } else {
-        nav.innerHTML += '<a href="/ingresar" class="link" id="login">Ingresar</a>'
-    }
-</script>

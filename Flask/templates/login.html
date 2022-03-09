@@ -7,54 +7,47 @@
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli.tk</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="login-body">
     <header class="header">
-        <img src="{{ url_for('static', filename='favicon.png') }}" alt="TUPeli" class="header-logo">
-        <h1 class="header-title">TUPeli.tk</h1>
-        <nav class="header-nav ml-auto">
+        <div class="header-logo">
+            <h1 class="header-title">TUPeli</h1>
+            <div class="header-slogan">Tu opinión, tu puntuación, TUPeli 😉</div>
+        </div>        
+        <nav class="header-nav" id="navigation">
             <a href="/" class="link">Inicio</a>
         </nav>
     </header>
-    <main class="top10">
-        <h1 class="titulo-principal"></h1>
+    <main class="login">        
+        <div id="contenedor">
         
-        <div class="login">
-            <div id="contenedor">
-            
-                <div id="contenedorcentrado">
-                    <div id="login">
-                        <div id="errorLogin"></div>
-                        <form id="loginform" method="post">
-                            <label for="usuario">Usuario</label>
-                            <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
-                            
-                            <label for="password">Contraseña</label>
-                            <input id="password" type="password" placeholder="Contraseña" name="password" required>
-                            
-                        </form>
-                        <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
+            <div id="contenedorcentrado">
+                <div id="login">
+                    <div id="errorLogin"></div>
+                    <form id="loginform" method="post">
+                        <label for="usuario">Usuario</label>
+                        <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
                         
-                    </div>
-                    <div id="derecho">
-                        <div class="titulo">
-                            Bienvenido
-                        </div>
-                        <hr>
-                        <br><br><br>   
-                        <a href="/">« Volver</a>
-                        </div>
+                        <label for="password">Contraseña</label>
+                        <input id="password" type="password" placeholder="Contraseña" name="password" required>
+                        
+                    </form>
+                    <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
+                    
+                </div>
+                <div id="derecho">
+                    <h3 class="titulo">Bienvenido</h3>
+                    <hr>
+                    <a href="/">« Volver</a>
                     </div>
                 </div>
             </div>
-           
         </div>
-        
     </main>
     <footer class="pie">
         <div class="columna">

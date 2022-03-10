@@ -29,56 +29,73 @@
 
     <main class="top10">
         <h1 class="titulo-principal">¡Cargá tu pelicula!</h1>
-    
-        <div id="formulario_carga">
-
+            <div id="formulario_carga">
+            <div class="input-group col12">
+                <label for="titulo_pelicula">Titulo: </label>
+                <input type="text" id="lname" name="lastname" placeholder="titulo pelicula">
+            </div>
+            <div class="input-group col18">
+                <label for="anio">Año: </label>
+                <input type="number" id="anio" name="anio" placeholder="Año" value=2022>
+            </div>
+            <div class="input-group col316">
+                <label for="genero">Género</label>
+                <select id="genero" name="genero">
+                <option value="genero1">genero</option>
+                <option value="genero1">genero</option>
+                <option value="genero1">genero</option>
+                </select>
+            </div>
+            <div class="input-group col316">
+                <label for="genero">Subgénero</label>
+                <select id="genero" name="genero">
+                <option value="genero1">genero</option>
+                <option value="genero1">genero</option>
+                <option value="genero1">genero</option>
+                </select>
+            </div>
+            <div class="input-group col14">
+                <label for="director_id">Director</label>
+                <select id="director_id" name="director">
+                <option value="dire1">dire1</option>
+                <option value="dire2">dire2</option>
+                <option value="dire3">dire3</option>
+                </select>
+            </div>
+            <div class="input-group col14">
+                <label for="imagen_pelicula">Portada: </label>
+                <input type="url" id="imagen_pelicula" placeholder="url portada">
+            </div>
+            <div class="input-group col14">
+                <label for="trailer">Trailer: </label>
+                <input type="url" id="trailer" placeholder="url trailer">
+            </div>
+            <div class="input-group col14">
+                <label for="sinopsis">Sinopsis</label>
+                <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:100px"></textarea>
+            </div>
+            <div class="input-group col1">
+            </div>
             
-            <h3>¡Dejá tu recomendación!</h3>
-
-            <label for="titulo_pelicula">Titulo: </label>
-            <input type="text" id="lname" name="lastname" placeholder="titulo pelicula">
-            
-            <label for="anio">Año: </label>
-            <input type="number" id="anio" name="anio" placeholder="Año" value=2022>
-
-            <label for="director_id">Director</label>
-            <select id="director_id" name="director">
-            <option value="dire1">dire1</option>
-            <option value="dire2">dire2</option>
-            <option value="dire3">dire3</option>
-            </select>
-            
-            <label for="genero">Director</label>
-            <select id="genero" name="genero">
-            <option value="genero1">genero</option>
-            <option value="genero1">genero</option>
-            <option value="genero1">genero</option>
-            </select>
-            
-            <label for="calificacion">Calificacion</label>
-            <select id="calificacion" name="calificacion">
-            <option value="5">⭐⭐⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="1">⭐</option>
-            
-            </select>
-            
-            <label for="sinopsis">Sinopsos</label>
-            <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:200px"></textarea>
-            
-            <label for="imagen_pelicula">Portada: </label>
-            <input type="url" id="imagen_pelicula" placeholder="url portada">
-            
-            <label for="trailer">Trailer: </label>
-            <input type="url" id="trailer" placeholder="url trailer">
-            
-            
-            <label for="resenia">Reseña</label>
-            <textarea id="resenia" name="resenia" placeholder="Escribe tu reseña.." style="height:200px"></textarea>
-
-            <input type="submit" value="Enviar">
+            <div class="input-group col14">
+                <label for="calificacion">Calificacion</label>
+                <select id="calificacion" name="calificacion">
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+                </select>
+            </div>
+            <div class="input-group col34">
+                <label for="resenia">Reseña</label>
+                <textarea id="resenia" name="resenia" placeholder="Escribe tu reseña.." style="height:200px"></textarea>
+            </div>
+            <div class="input-group col34">
+            </div>
+            <div class="input-group col14">
+                <input type="submit" value="Enviar">
+            </div>
         </form>
         </div>
 

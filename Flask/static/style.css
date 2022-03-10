@@ -1,12 +1,12 @@
 /* Iconos */
-@import 'static/font/typicons.css';
+@import './font/typicons.css';
 @font-face {
     font-family: 'typicons';
-    src: url("static/font/typicons.eot");
-    src: url("static/font/typicons.eot?#iefix") format('embedded-opentype'),
-         url("static/font/typicons.woff") format('woff'),
-         url("static/font/typicons.ttf") format('truetype'),
-         url("static/font/typicons.svg#typicons") format('svg');
+    src: url("./font/typicons.eot");
+    src: url("./font/typicons.eot?#iefix") format('embedded-opentype'),
+         url("./font/typicons.woff") format('woff'),
+         url("./font/typicons.ttf") format('truetype'),
+         url("./font/typicons.svg#typicons") format('svg');
     font-weight: normal;
     font-style: normal;
   }
@@ -15,7 +15,7 @@
 html, body {
     box-sizing:content-box;
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     background: #384580;
     min-height: 100vh;
 }
@@ -61,7 +61,7 @@ html, body {
     margin: 0;
     padding-left: 1.5em;
     font-size: 1.5em;
-    background: url(static/favicon.png) no-repeat;
+    background: url(./images/favicon.png) no-repeat;
     background-size: contain;
 }
 
@@ -112,6 +112,11 @@ html, body {
     text-align: center;
     padding: 1em;
     border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+#mobile-hamburger {
+    cursor: pointer;
 }
 
 main {
@@ -158,9 +163,8 @@ main {
 /* formulario de login */
 #login {
     width: 100%;
-    max-width: 320px;
     min-width: 320px;
-    padding: 30px 30px 50px 30px;
+    padding: 1em 2em 2em;
     background-color: #719192;
     
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
@@ -240,6 +244,12 @@ main {
     font-size: 3em;
     color: white;
     margin: 0 1em;
+}
+
+#derecho a {
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
 .logo-empresa img {
@@ -352,6 +362,42 @@ main {
     filter: contrast(0);
 }
 
+/* CARGAR PELICULA */
+
+#formulario_carga {
+    padding: 1em;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#formulario_carga .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#formulario_carga input,
+#formulario_carga textarea,
+#formulario_carga select {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1em;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 0.5em;
+}
+
+#formulario_carga label {
+    color: white;
+    opacity: .5;
+    padding: 0;
+    margin: 0;
+}
+
+
+
 .pie {
     display: flex;
     background: #3c354a;
@@ -366,6 +412,12 @@ main {
 .pie a {
     text-decoration: none;
     color: #fff;
+    background: tomato;
+    padding: 2px 5px;
+}
+
+.pie a:hover {
+    background-color: #ff4422;
 }
 
 .pie .titulo {
@@ -374,6 +426,36 @@ main {
 
 
 @media (min-width: 720px) {
+
+    .col1 {
+        max-width: 100% !important;
+    }
+
+    .col34 {
+        max-width: 75% !important;
+    }
+
+    .col12 {
+        max-width: 50% !important;
+    }
+
+    .col13 {
+        max-width: 33% !important;
+    }
+    
+    .col14 {
+        max-width: 25% !important;
+    }
+
+    .col18 {
+        max-width: 12.5% !important;
+    }
+
+    .col316 {
+        max-width: 18.75% !important;
+    }
+    
+    
     .header {
         flex-direction:row;
         justify-content: space-between;
@@ -430,6 +512,10 @@ main {
         margin: 1em .5em .5em;
     }
 
+    #login {
+        max-width: 320px;
+    }
+
     #contenedorcentrado {
         flex-direction:row;
         padding: 30px;
@@ -441,6 +527,10 @@ main {
 
     #derecho {
         padding:20px 20px 20px 50px;
+    }
+
+    #derecho a {
+        margin: 2em;
     }
 
     .tupeli {
@@ -479,6 +569,11 @@ main {
         flex-direction: row;
         font-size: 1em;
         text-align-last: initial;
+    }
+
+    #formulario_carga .input-group {
+        max-width: 33%;
+        padding: 1em;
     }
 
   }

@@ -35,7 +35,10 @@ def api_peliculas():
 def api_agregar():
     return render_template('agregar.html')
 
-
+@app.route('/typicons')
+def typicons_demo():
+    return render_template('typicons.html')
+    
 
 #
 #        ***   USUARIOS   ***

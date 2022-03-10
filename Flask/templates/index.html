@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='./images/favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,7 +136,7 @@
                 <div class="tupeli-review">REVIEW</div>
             </div>
             <div class="tupeli-imagen-promedio">
-                <div class="tupeli-imagen"><img src="{{ url_for('static', filename='default.png') }}" alt="TITULO poster" srcset=""></div>
+                <div class="tupeli-imagen"><img src="{{ url_for('static', filename='./images/default.png') }}" alt="TITULO poster" srcset=""></div>
                 <div class="tupeli-promedio-stars">
                     <div class="tupeli-stars">STARS</div>
                     <div class="tupeli-promedio">PROMEDIO</div>
@@ -145,16 +145,6 @@
         </div>
     </template>
     <script>
-        
-        document.getElementById("mobile-cerrar").addEventListener("click", mobileToggle);
-        document.getElementById("mobile-hamburger").addEventListener("click", mobileToggle)
-
-        function mobileToggle() {
-            document.getElementById("navigation").classList.toggle("mobile-active");
-        }
-        
-    </script>
-    <script>
         let cookies = document.cookie
         let logueado = cookies.includes("usuario") && cookies.includes("validado=true")
         const nav = document.getElementById("navigation")
@@ -162,8 +152,12 @@
         if (logueado) {
             nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar Pelicula</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
         } else {
-            nav.innerHTML += '<a href="/ingresar" class="link" id="login">Ingresar</a>'
+            nav.innerHTML += '<a href="/ingresar" class="link login">Ingresar</a>'
         }
+        
+        // Navegacion Mobile
+        document.getElementById("mobile-hamburger").addEventListener("click", () => nav.classList.add("mobile-active"));
+        document.getElementById("mobile-cerrar").addEventListener("click", () => nav.classList.remove("mobile-active"));
     </script>
 </body>
 </html>

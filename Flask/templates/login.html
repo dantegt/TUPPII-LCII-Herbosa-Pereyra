@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli.tk</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='./images/favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,8 +36,8 @@
                         <label for="password">Contraseña</label>
                         <input id="password" type="password" placeholder="Contraseña" name="password" required>
                         
+                        <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
                     </form>
-                    <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
                     
                 </div>
                 <div id="derecho">
@@ -71,7 +71,7 @@
         let botonEnviar = document.getElementById('enviar');
   
         botonEnviar.addEventListener('click' , evento =>{
-
+            evento.preventDefault()
             let campoUsuario = document.getElementById('usuario').value;
             let campoPassword = document.getElementById('password').value;
             let campoError = document.getElementById('errorLogin');
@@ -91,9 +91,6 @@
             fetch('http://127.0.0.1:5000/api/login', requestOptions)
                 .then( resp => resp.json())
                 .then( validado => {
-                    console.log(validado);
-                    
-                    
                     if (validado){
                         console.log("usuario registrado");
                         campoError.innerHTML = "";

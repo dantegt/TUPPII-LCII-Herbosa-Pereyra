@@ -31,7 +31,7 @@
         <h1 class="titulo-principal">¡Cargá tu pelicula!</h1>
             <div id="formulario_carga">
             <div class="input-group col12">
-                <label for="titulo_pelicula">Titulo: </label>
+                <label for="titulo">Titulo: </label>
                 <input type="text" id="lname" name="lastname" placeholder="titulo pelicula">
             </div>
             <div class="input-group col18">
@@ -39,28 +39,32 @@
                 <input type="number" id="anio" name="anio" placeholder="Año" value=2022>
             </div>
             <div class="input-group col316">
-                <label for="genero">Género</label>
+                <label for="genero">Genero: </label>
                 <select id="genero" name="genero">
-                <option value="genero1">genero</option>
-                <option value="genero1">genero</option>
-                <option value="genero1">genero</option>
+                    <option disabled selected value> Genero </option>
+                    <option value="genero1">genero1</option>
+                    <option value="genero2">genero2</option>
+                    <option value="genero3">genero3</option>
                 </select>
             </div>
             <div class="input-group col316">
-                <label for="genero">Subgénero</label>
+                <label for="sub_genero">Sub genero: </label>
                 <select id="genero" name="genero">
-                <option value="genero1">genero</option>
-                <option value="genero1">genero</option>
-                <option value="genero1">genero</option>
-                </select>
+                    <option value="genero"> Sub genero </option>
+            </select>
             </div>
             <div class="input-group col14">
                 <label for="director_id">Director</label>
                 <select id="director_id" name="director">
-                <option value="dire1">dire1</option>
-                <option value="dire2">dire2</option>
-                <option value="dire3">dire3</option>
+                    <option disabled selected value="dire1"> Director </option>
+                    <option value="dire1">dire1</option>
+                    <option value="dire2">dire2</option>
+                    <option value="dire3">dire3</option>
                 </select>
+            </div>
+            <div class="input-group col14">
+                <label for="sinopsis">Sinopsos</label>
+                <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:200px"></textarea>
             </div>
             <div class="input-group col14">
                 <label for="imagen_pelicula">Portada: </label>
@@ -70,26 +74,22 @@
                 <label for="trailer">Trailer: </label>
                 <input type="url" id="trailer" placeholder="url trailer">
             </div>
-            <div class="input-group col14">
-                <label for="sinopsis">Sinopsis</label>
-                <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:100px"></textarea>
-            </div>
+            
             <div class="input-group col1">
             </div>
             
             <div class="input-group col14">
-                <label for="calificacion">Calificacion</label>
-                <select id="calificacion" name="calificacion">
-                <option value="5">⭐⭐⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="1">⭐</option>
-                </select>
+                <select id="promedio" name="promedio">
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
+                </select>         
             </div>
             <div class="input-group col34">
-                <label for="resenia">Reseña</label>
-                <textarea id="resenia" name="resenia" placeholder="Escribe tu reseña.." style="height:200px"></textarea>
+                <label for="comentarios">Reseña</label>
+            <textarea id="comentarios" name="comentarios" placeholder="Escribe tu reseña.." style="height:200px"></textarea>
             </div>
             <div class="input-group col34">
             </div>

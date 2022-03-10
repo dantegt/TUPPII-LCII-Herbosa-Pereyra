@@ -135,7 +135,7 @@ def alta_pelicula():
     # Validar data que viene del pedido
     # data.keys() >= {"usuario", "titulo"}  retorna true si hay coincidencia
 
-    campos = {"usuario", "titulo"}
+    campos = {"usuario", "titulo", "genero", "director", "sinopsis", "imagen", "trailer", "promedio", "subidapor", "comentarios"}
     if data.keys() < campos:
         return jsonify("Falta usuario o titulo"), HTTPStatus.BAD_REQUEST
 
@@ -149,15 +149,16 @@ def alta_pelicula():
     pelicula_nueva = {
         "id": next_id,
         "titulo": data["titulo"],
-        # "anio": data["anio"],
-        # "genero": data["genero"],
-        # "director": data["director"],
-        # "sinopsis": data["sinopsis"],
-        # "imagen": data["imagen"],
-        # "trailer": data["trailer"],
-        # "promedio": data["promedio"],
-        # "subidapor": data["subidapor"],
-        # "comentarios": data[""],
+        "anio": data["anio"],
+        "genero": data["genero"],
+        "genero_sub": data["genero_sub"],
+        "director": data["director"],
+        "sinopsis": data["sinopsis"],
+        "imagen": data["imagen"],
+        "trailer": data["trailer"],
+        "promedio": data["promedio"],
+        "subidapor": data["subidapor"],
+        "comentarios": data["comentarios"]
     }
     db["peliculas"].append(pelicula_nueva)
     return jsonify(pelicula_nueva), HTTPStatus.OK

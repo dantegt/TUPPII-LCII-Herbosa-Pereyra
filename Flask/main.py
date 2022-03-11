@@ -27,9 +27,9 @@ def api_docs():
 def directores():
     return render_template('directores.html')
 
-@app.route('/peliculas')
+'''@app.route('/peliculas')
 def api_peliculas():
-    return render_template('peliculas.html')
+    return render_template('peliculas.html')'''
 
 @app.route('/agregar')
 def api_agregar():
@@ -127,7 +127,7 @@ def existe_pelicula(titulo):
     return False
 
 
-# revisar
+
 @app.route("/peliculas", methods=['POST'])
 def alta_pelicula():
     # recibir datos por parte del cliente
@@ -164,16 +164,59 @@ def alta_pelicula():
     return jsonify(pelicula_nueva), HTTPStatus.OK
 
 
-# revisar
+#maqueta, revisar.
+@app.route("/peliculas/<id>", methods=['PUT'])
+def modificar_pelicula(id):
+    int(id)
+    data = request.get_json()
+    peliculas = data["peliculas"]
+    for pelicula in peliculas:
+        if pelicula["id"] == id:
+                actualizacion = {
+                    "titulo": data["titulo"],
+                    "anio": data["anio"],
+                    "genero": data["genero"],
+                    "genero_sub": data["genero_sub"],
+                    "director": data["director"],
+                    "sinopsis": data["sinopsis"],
+                    "imagen": data["imagen"],
+                    "trailer": data["trailer"],
+                    "promedio": data["promedio"],
+                    "subidapor": data["subidapor"],
+                    "comentarios": data["comentarios"]
+                }
+        return jsonify(actualizacion), HTTPStatus.OK
+
+#revisar
+@app.route("/pelicula_portada", methods=['GET'])
+def retornar_peliculas_con_portada():
+    peliculas = db["peliculas"]
+    for pelicula in peliculas:
+        if len(pelicula["imagen"]) > 0:
+            return jsonify(pelicula), HTTPStatus.OK
+        return jsonify({}), HTTPStatus.BAD_REQUEST
+#solo retorna matrix
+
+
+# corregido en github
 @app.route("/pelicula", methods=['DELETE'])
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
-    if "pelicula" in data and "comentarios" != [""]:
+    if db["peliculas"] in data and db["comentarios"] != [""]:
         db["peliculas"]["pelicula"].pop()
         return jsonify({}), HTTPStatus.OK
     else:
         return jsonify({}), HTTPStatus.BAD_REQUEST
+
+
+'''    if not existe_usuario(data["usuario"]):     
+        return jsonify("Quien te conoce papa."), HTTPStatus.BAD_REQUEST
+        
+        comentario.usuarioID for comentario in data[comentarios]
+'''
+
+
 
 @app.route("/directores", methods=['GET'])
 def retornar_directores():
@@ -197,4 +240,6 @@ def validar_login():
     return jsonify(False), HTTPStatus.OK
 
 
+
 app.run(debug=True)
+

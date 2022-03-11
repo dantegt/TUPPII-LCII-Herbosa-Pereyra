@@ -42,24 +42,47 @@
                 <label for="genero">Genero: </label>
                 <select id="genero" name="genero">
                     <option disabled selected value> Genero </option>
-                    <option value="genero1">genero1</option>
-                    <option value="genero2">genero2</option>
-                    <option value="genero3">genero3</option>
+                    <option value="Acción">Acción</option>
+                    <option value="Animacion">Animacion</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Ciencia ficcion">Ciencia ficcion</option>
+                    <option value="Comedia">Comedia</option>
+                    <option value="Crimen">Crimen</option>
+                    <option value="Documental">Documental</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasía">Fantasía</option>
+                    <option value="Romantica">Romantica</option>
+                    <option value="Suspenso">Suspenso</option>
+                    <option value="Terror">Terror</option>
+
                 </select>
             </div>
             <div class="input-group col316">
                 <label for="sub_genero">Sub genero: </label>
                 <select id="genero" name="genero">
                     <option value="genero"> Sub genero </option>
+                    <option disabled selected value> Genero </option>
+                    <option value="Acción">Acción</option>
+                    <option value="Animacion">Animacion</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Ciencia ficcion">Ciencia ficcion</option>
+                    <option value="Comedia">Comedia</option>
+                    <option value="Crimen">Crimen</option>
+                    <option value="Documental">Documental</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasía">Fantasía</option>
+                    <option value="Romantica">Romantica</option>
+                    <option value="Suspenso">Suspenso</option>
+                    <option value="Terror">Terror</option>
             </select>
             </div>
             <div class="input-group col14">
                 <label for="director_id">Director</label>
                 <select id="director_id" name="director">
                     <option disabled selected value="dire1"> Director </option>
-                    <option value="dire1">dire1</option>
-                    <option value="dire2">dire2</option>
-                    <option value="dire3">dire3</option>
+                    <option value="Wachowsky">Wachowsky</option>
+                    <option value="Ridley Scott">Ridley Scott</option>
+                    <option value="Denis Villeneuve">Denis Villeneuve</option>
                 </select>
             </div>
             <div class="input-group col14">
@@ -119,6 +142,8 @@
             <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
         </div>
     </footer>
+    
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
 
 </body>
 </html>

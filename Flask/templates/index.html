@@ -159,5 +159,15 @@
         document.getElementById("mobile-hamburger").addEventListener("click", () => nav.classList.add("mobile-active"));
         document.getElementById("mobile-cerrar").addEventListener("click", () => nav.classList.remove("mobile-active"));
     </script>
+    <script>
+    fetch('http://127.0.0.1:5000/api/ultimas')
+        .then( resp => resp.json())
+        .then( peliculas => {
+            peliculas.sort((a, b) => a.id < b.id ? 1 : -1);
+            console.log(peliculas);
+        })
+
+    // https://codepen.io/cferdinandi/pen/vYJPmWw
+    </script>
 </body>
 </html>

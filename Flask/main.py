@@ -38,6 +38,7 @@ def api_agregar():
 @app.route('/typicons')
 def typicons_demo():
     return render_template('typicons.html')
+
     
 
 #
@@ -105,25 +106,23 @@ def editar_usuario():
 #
 
 
-@app.route("/peliculas", methods=['GET'])
+@app.route("/api/ultimas", methods=['GET'])
 def retornar_peliculas():
-    return jsonify(db["peliculas"])
+    return jsonify(db["peliculas"][-10:])
 
 
 @app.route("/peliculas/<titulo>", methods=['GET'])
 def retornar_pelicula(titulo):
-    peliculas = db["peliculas"]
-    # pelicula_id = int(id)
-    for pelicula in peliculas:
-        if pelicula['titulo'].lower() == titulo.lower():
-            return jsonify(pelicula), HTTPStatus.OK
+    pelicula = existe_pelicula(titulo)
+    if pelicula:
+        return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
 def existe_pelicula(titulo):
     peliculas = db["peliculas"]
     for pelicula in peliculas:
         if pelicula['titulo'].lower() == titulo.lower():
-            return True
+            return pelicula
     return False
 
 
@@ -169,11 +168,12 @@ def alta_pelicula():
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
-    if "pelicula" in data and "comentarios" != [""]:
-        db["peliculas"]["pelicula"].pop()
-        return jsonify({}), HTTPStatus.OK
-    else:
-        return jsonify({}), HTTPStatus.BAD_REQUEST
+    hay_comentarios_adicionales = any(c["id_pelicula"] == data["id_pelicula"] and c["id_usuario"] != data["id_usuario"] for c in db["comentarios"])
+    if hay_comentarios_adicionales:
+        return jsonify("MAMA! Saca la mano de ahí carajo. Hay comentarios de otros!"), HTTPStatus.BAD_REQUEST
+    
+    db["peliculas"] = [peli for peli in db["peliculas"] if peli["id"] != data["id_pelicula"]]
+    return jsonify("Se borró la película"), HTTPStatus.OK
 
 @app.route("/directores", methods=['GET'])
 def retornar_directores():
@@ -195,6 +195,12 @@ def validar_login():
                 user = {key: val for key, val in usuario.items() if key not in ["contrasenia"]}
                 return jsonify(user), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
+
+@app.route("/test/<id>", methods=['GET'])
+def probando(id):
+    hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
+    peliculas = [peli for peli in db["peliculas"] if peli["id"] != int(id)]
+    return jsonify(peliculas)
 
 
 app.run(debug=True)

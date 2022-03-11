@@ -85,7 +85,7 @@
         "nombre": "Carlos Berger"
       }
     ],
-    "resenias": [
+    "comentarios": [
       {
         "id_usuario": 1,
         "id_pelicula": 1,

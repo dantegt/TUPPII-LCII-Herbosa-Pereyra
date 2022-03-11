@@ -6,52 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli.tk</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='./images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
-</head>
-<body id="login-body">
+<body>
     <header class="header">
         <div class="header-logo">
             <h1 class="header-title">TUPeli</h1>
             <div class="header-slogan">Tu opinión, tu puntuación, TUPeli 😉</div>
-        </div>        
+        </div>
+        
         <nav class="header-nav" id="navigation">
             <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
             <a href="/" class="link">Inicio</a>
             <a href="/directores" class="link">Directores</a>
             <a href="/peliculas" class="link">Peliculas</a>
+      
         </nav>
     </header>
-    <main class="login">        
-        <div id="contenedor">
+
+    <main class="top10">
+        <h1 class="titulo-principal">¡Cargá tu pelicula!</h1>
+           
         
-            <div id="contenedorcentrado">
-                <div id="login">
-                    <div id="errorLogin"></div>
-                    <form id="loginform" method="post">
-                        <label for="usuario">Usuario</label>
-                        <input id="usuario" type="text" name="usuario" placeholder="Usuario" required>
-                        
-                        <label for="password">Contraseña</label>
-                        <input id="password" type="password" placeholder="Contraseña" name="password" required>
-                        
-                        <button id="enviar" title="Ingresar" name="Ingresar">Login</button>
-                    </form>
-                    
-                </div>
-                <div id="derecho">
-                    <h3 class="titulo">Bienvenido</h3>
-                    <hr>
-                    <a href="/">« Volver</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
+
     <footer class="pie">
         <div class="columna">
             <h3 class="titulo">TUPeli.tk</h3>
@@ -69,9 +50,7 @@
             <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
         </div>
     </footer>
-   
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
-    <script src="{{ url_for('static', filename='login.js') }}"></script>
-   
+
 </body>
 </html>

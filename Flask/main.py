@@ -27,9 +27,9 @@ def api_docs():
 def directores():
     return render_template('directores.html')
 
-@app.route('/peliculas')
+'''@app.route('/peliculas')
 def api_peliculas():
-    return render_template('peliculas.html')
+    return render_template('peliculas.html')'''
 
 @app.route('/agregar')
 def api_agregar():
@@ -112,11 +112,20 @@ def retornar_peliculas():
 
 
 @app.route("/peliculas/<titulo>", methods=['GET'])
-def retornar_pelicula(titulo):
+def retornar_pelicula_con_titulo(titulo):
     pelicula = existe_pelicula(titulo)
     if pelicula:
         return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
+
+@app.route("/peliculas/<id>", methods=['GET'])
+def retornar_pelicula_con_id(id):
+    peliculas = db["peliculas"]
+    for pelicula in peliculas:
+        if pelicula["id"] == id:
+            return jsonify(pelicula), HTTPStatus.OK
+    return jsonify({}), HTTPStatus.BAD_REQUEST
+
 
 def existe_pelicula(titulo):
     peliculas = db["peliculas"]
@@ -126,7 +135,7 @@ def existe_pelicula(titulo):
     return False
 
 
-# revisar
+
 @app.route("/peliculas", methods=['POST'])
 def alta_pelicula():
     # recibir datos por parte del cliente
@@ -163,17 +172,62 @@ def alta_pelicula():
     return jsonify(pelicula_nueva), HTTPStatus.OK
 
 
-# revisar
+#maqueta, revisar.
+@app.route("/peliculas/<id>", methods=['PUT'])
+def modificar_pelicula(id):
+    data = request.get_json()
+    nuevo = {
+        "titulo": data["titulo"],
+        "anio": data["anio"],
+        "genero": data["genero"],
+        "genero_sub": data["genero_sub"],
+        "director": data["director"],
+        "sinopsis": data["sinopsis"],
+        "imagen": data["imagen"],
+        "trailer": data["trailer"],
+        "promedio": data["promedio"],
+        "subidapor": data["subidapor"],
+        "comentarios": data["comentarios"]
+    }
+    db["peliculas"][id].update(nuevo)
+    # peliculas = db["peliculas"]
+    # for pelicula in peliculas:
+    #     if pelicula["id"] == int(id):
+    #         actualizacion = {
+    #             "titulo": data["titulo"],
+    #             "anio": data["anio"],
+    #             "genero": data["genero"],
+    #             "genero_sub": data["genero_sub"],
+    #             "director": data["director"],
+    #             "sinopsis": data["sinopsis"],
+    #             "imagen": data["imagen"],
+    #             "trailer": data["trailer"],
+    #             "promedio": data["promedio"],
+    #             "subidapor": data["subidapor"],
+    #             "comentarios": data["comentarios"]
+    #         }
+    return jsonify(db["peliculas"][id]), HTTPStatus.OK
+
+
+@app.route("/pelicula_portada", methods=['GET'])
+def retornar_peliculas_con_portada():
+    portadas = [peli for peli in db["peliculas"] if len(peli["imagen"]) > 0]
+    return jsonify(portadas), HTTPStatus.OK
+
+
+
 @app.route("/pelicula", methods=['DELETE'])
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
+
     hay_comentarios_adicionales = any(c["id_pelicula"] == data["id_pelicula"] and c["id_usuario"] != data["id_usuario"] for c in db["comentarios"])
     if hay_comentarios_adicionales:
         return jsonify("MAMA! Saca la mano de ahí carajo. Hay comentarios de otros!"), HTTPStatus.BAD_REQUEST
     
     db["peliculas"] = [peli for peli in db["peliculas"] if peli["id"] != data["id_pelicula"]]
     return jsonify("Se borró la película"), HTTPStatus.OK
+
 
 @app.route("/directores", methods=['GET'])
 def retornar_directores():
@@ -203,4 +257,6 @@ def probando(id):
     return jsonify(peliculas)
 
 
+
 app.run(debug=True)
+

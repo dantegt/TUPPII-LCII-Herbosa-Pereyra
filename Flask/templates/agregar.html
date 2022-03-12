@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
     <title>TUPeli.tk</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,7 @@
             <a href="/peliculas" class="link">Peliculas</a>
       
         </nav>
+        <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
     </header>
 
     <main class="top10">
@@ -42,51 +43,22 @@
                 <label for="genero">Genero: </label>
                 <select id="genero" name="genero">
                     <option disabled selected value> Genero </option>
-                    <option value="Acción">Acción</option>
-                    <option value="Animacion">Animacion</option>
-                    <option value="Aventura">Aventura</option>
-                    <option value="Ciencia ficcion">Ciencia ficcion</option>
-                    <option value="Comedia">Comedia</option>
-                    <option value="Crimen">Crimen</option>
-                    <option value="Documental">Documental</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Fantasía">Fantasía</option>
-                    <option value="Romantica">Romantica</option>
-                    <option value="Suspenso">Suspenso</option>
-                    <option value="Terror">Terror</option>
-
                 </select>
             </div>
             <div class="input-group col316">
-                <label for="sub_genero">Sub genero: </label>
-                <select id="genero" name="genero">
-                    <option value="genero"> Sub genero </option>
-                    <option disabled selected value> Genero </option>
-                    <option value="Acción">Acción</option>
-                    <option value="Animacion">Animacion</option>
-                    <option value="Aventura">Aventura</option>
-                    <option value="Ciencia ficcion">Ciencia ficcion</option>
-                    <option value="Comedia">Comedia</option>
-                    <option value="Crimen">Crimen</option>
-                    <option value="Documental">Documental</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Fantasía">Fantasía</option>
-                    <option value="Romantica">Romantica</option>
-                    <option value="Suspenso">Suspenso</option>
-                    <option value="Terror">Terror</option>
+                <label for="genero_sub">Sub genero: </label>
+                <select id="genero_sub" name="genero_sub">
+                    <option disabled selected value> Sub Genero </option>
             </select>
             </div>
             <div class="input-group col14">
                 <label for="director_id">Director</label>
                 <select id="director_id" name="director">
                     <option disabled selected value="dire1"> Director </option>
-                    <option value="Wachowsky">Wachowsky</option>
-                    <option value="Ridley Scott">Ridley Scott</option>
-                    <option value="Denis Villeneuve">Denis Villeneuve</option>
                 </select>
             </div>
             <div class="input-group col14">
-                <label for="sinopsis">Sinopsos</label>
+                <label for="sinopsis">Sinopsis</label>
                 <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:200px"></textarea>
             </div>
             <div class="input-group col14">
@@ -111,8 +83,8 @@
                 </select>         
             </div>
             <div class="input-group col34">
-                <label for="comentarios">Reseña</label>
-            <textarea id="comentarios" name="comentarios" placeholder="Escribe tu reseña.." style="height:200px"></textarea>
+                <label for="comentarios">Comentarios</label>
+            <textarea id="comentarios" name="comentarios" placeholder="¿Qué te pareció la pelicula? ¡Contanos!" style="height:200px"></textarea>
             </div>
             <div class="input-group col34">
             </div>
@@ -144,6 +116,27 @@
     </footer>
     
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script>
+        fetch('/api/directores')
+            .then( resp => resp.json())
+            .then( directores => {
+                const selectDirectores = document.getElementById("director_id")
+                directores.forEach(d => {
+                    selectDirectores.innerHTML += `<option value="${d.id_director}">${d.director}</option>`
+                });
+            })
+
+        fetch('/api/generos')
+            .then( resp => resp.json())
+            .then( generos => {
+                const selectGeneros = document.getElementById("genero")
+                const selectSubGeneros = document.getElementById("genero_sub")
+                generos.forEach((genero, valor) => {
+                    selectGeneros.innerHTML += `<option value="${valor}">${genero}</option>`
+                    selectSubGeneros.innerHTML += `<option value="${valor}">${genero}</option>`
+                });
+            })
+    </script>
 
 </body>
 </html>

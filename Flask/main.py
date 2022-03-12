@@ -235,7 +235,7 @@ def borrar_pelicula():
     return jsonify("Se borró la película"), HTTPStatus.OK
 
 
-@app.route("/api/director", methods=['GET'])
+@app.route("/api/directores", methods=['GET'])
 def retornar_directores():
     return jsonify(db["directores"])
 
@@ -278,6 +278,10 @@ def cargar_comentario():
 def todos_los_comentarios():
     return jsonify(db["comentarios"]), HTTPStatus.OK
 
+@app.route("/api/generos", methods=['GET'])
+def obtener_generos():
+    return jsonify(db["generos"]), HTTPStatus.OK
+
 @app.route("/api/test/<id>", methods=['GET'])
 def probando(id):
     # hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
@@ -289,8 +293,6 @@ def probando(id):
         peli = db["peliculas"][peli_index]
         return jsonify(peli), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
-
-
 
 app.run(debug=True)
 

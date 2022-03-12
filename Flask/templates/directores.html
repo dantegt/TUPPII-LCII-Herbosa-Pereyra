@@ -25,17 +25,18 @@
             <a href="/peliculas" class="link">Peliculas</a>
       
         </nav>
+        <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
     </header>
 
-    <main class="top10">
-        <h1 class="titulo-principal">¡Cargá tu pelicula!</h1>
+    <main id="directores">
+        <h1 class="titulo-principal">Directores</h1>
            
         
     </main>
 
     <footer class="pie">
         <div class="columna">
-            <h3 class="titulo">TUPeli.tk</h3>
+            <h3 class="titulo">TUPeli</h3>
             <a href="/" class="link">Top 10 reviews</a>
             <a href="/directores" class="link">Directores</a>
             <a href="/peliculas" class="link">Peliculas</a>
@@ -51,6 +52,26 @@
         </div>
     </footer>
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
-
+    <script>
+        fetch('http://127.0.0.1:5000/director')
+            .then( resp => resp.json())
+            .then( directores => {
+                console.log(directores)           
+                directores.forEach(d => {
+                    const imagen = (d.imagen_director.length > 0) ? d.imagen_director : "static/images/default.png"    
+                    const director =`<div class="tupeli director">
+                        <div class="tupeli-nombre-nav">
+                            <div class="tupeli-nombre">${d.director}</div>
+                            <a href="director/${d.id_director}" class="tupeli-link">Saber más ></a>
+                        </div>
+                        <div class="tupeli-imagen">
+                            <img src="${d.imagen_director}" alt="${d.director}">
+                        </div>
+                    </div>`
+    
+                    document.getElementById("directores").innerHTML += director
+                });
+            })
+        </script>
 </body>
 </html>

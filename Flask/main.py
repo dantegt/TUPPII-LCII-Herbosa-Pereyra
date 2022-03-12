@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder='templates')
 app.config['JSON_AS_ASCII'] = False
 CORS(app)
 
-data = open("db.json")
+data = open("db.json", encoding="utf-8")
 db = json.load(data)
 
 
@@ -108,7 +108,16 @@ def editar_usuario():
 
 @app.route("/api/ultimas", methods=['GET'])
 def retornar_peliculas():
-    return jsonify(db["peliculas"][-10:])
+    ultimas = db["peliculas"][-10:]
+    peliculas = []
+    for peli in ultimas:
+        peli["comentarios"] = [com for com in db["comentarios"] if com["id_pelicula"] == peli["id"]]
+        for c in peli["comentarios"]:
+            [usuario] = [u for u in db["usuarios"] if u["id"] == c["id_usuario"]]
+            c["nombre"] = usuario["nombre"]
+
+        peliculas.append(peli)
+    return jsonify(peliculas)
 
 
 @app.route("/peliculas/<titulo>", methods=['GET'])
@@ -215,7 +224,7 @@ def borrar_pelicula():
     return jsonify("Se borró la película"), HTTPStatus.OK
 
 
-@app.route("/directores", methods=['GET'])
+@app.route("/director", methods=['GET'])
 def retornar_directores():
     return jsonify(db["directores"])
 

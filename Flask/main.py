@@ -45,12 +45,12 @@ def typicons_demo():
 #        ***   USUARIOS   ***
 #
 
-@app.route("/usuarios", methods=['GET'])
+@app.route("/api/usuarios", methods=['GET'])
 def retornar_usuarios():
     return jsonify(db["usuarios"])
 
 
-@app.route("/usuario/<id>", methods=['GET'])
+@app.route("/api/usuario/<id>", methods=['GET'])
 def retornar_usuario(id):
     usuarios = db["usuarios"]
     usuario_id = int(id)
@@ -69,7 +69,7 @@ def existe_usuario(nombre):
     return False
 
 
-@app.route("/usuario", methods=['POST'])
+@app.route("/api/usuario", methods=['POST'])
 def alta_usuario():
     # recibir datos por parte del cliente
     data = request.get_json()
@@ -86,7 +86,7 @@ def alta_usuario():
         return jsonify({}), HTTPStatus.BAD_REQUEST
 
 
-@app.route("/usuario", methods=['PUT'])
+@app.route("/api/usuario", methods=['PUT'])
 def editar_usuario():
     data = request.get_json()
     if "id" in data:
@@ -133,18 +133,16 @@ def retornar_peliculas():
     return jsonify(peliculas)
 
 
-@app.route("/peliculas/<titulo>", methods=['GET'])
-def retornar_pelicula_con_titulo(titulo):
-    pelicula = existe_pelicula(titulo)
-    if pelicula:
-        return jsonify(pelicula), HTTPStatus.OK
-    return jsonify({}), HTTPStatus.BAD_REQUEST
-
-@app.route("/pelicula/<id>", methods=['GET'])
-def retornar_pelicula_con_id(id):
-    peliculas = db["peliculas"]
-    for pelicula in peliculas:
-        if pelicula["id"] == int(id):
+@app.route("/api/peliculas/<data>", methods=['GET'])
+def retornar_pelicula(data):
+    if data.isnumeric():
+        peliculas = db["peliculas"]
+        for pelicula in peliculas:
+            if pelicula["id"] == int(data):
+                return jsonify(pelicula), HTTPStatus.OK
+    else:
+        pelicula = existe_pelicula(data)
+        if pelicula:
             return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
@@ -158,7 +156,7 @@ def existe_pelicula(titulo):
 
 
 
-@app.route("/peliculas", methods=['POST'])
+@app.route("/api/peliculas", methods=['POST'])
 def alta_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
@@ -193,7 +191,7 @@ def alta_pelicula():
     return jsonify(pelicula_nueva), HTTPStatus.OK
 
 
-@app.route("/peliculas", methods=['PUT'])
+@app.route("/api/peliculas", methods=['PUT'])
 def modificar_pelicula():
     data = request.get_json()
     peliculas = db["peliculas"]
@@ -217,14 +215,14 @@ def modificar_pelicula():
     return jsonify(False), HTTPStatus.OK
 
 
-@app.route("/pelicula_portada", methods=['GET'])
+@app.route("/api/pelicula_portada", methods=['GET'])
 def retornar_peliculas_con_portada():
     portadas = [peli for peli in db["peliculas"] if len(peli["imagen"]) > 0]
     return jsonify(portadas), HTTPStatus.OK
 
 
 
-@app.route("/pelicula", methods=['DELETE'])
+@app.route("/api/pelicula", methods=['DELETE'])
 def borrar_pelicula():
     # recibir datos por parte del cliente
     data = request.get_json()
@@ -237,7 +235,7 @@ def borrar_pelicula():
     return jsonify("Se borró la película"), HTTPStatus.OK
 
 
-@app.route("/director", methods=['GET'])
+@app.route("/api/director", methods=['GET'])
 def retornar_directores():
     return jsonify(db["directores"])
 
@@ -280,7 +278,7 @@ def cargar_comentario():
 def todos_los_comentarios():
     return jsonify(db["comentarios"]), HTTPStatus.OK
 
-@app.route("/test/<id>", methods=['GET'])
+@app.route("/api/test/<id>", methods=['GET'])
 def probando(id):
     # hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
     # peliculas = [peli for peli in db["peliculas"] if peli["id"] != int(id)]

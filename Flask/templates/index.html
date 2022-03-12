@@ -92,7 +92,7 @@
     </form>
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
     <script>
-    fetch('http://127.0.0.1:5000/api/ultimas')
+    fetch('/api/ultimas')
         .then( resp => resp.json())
         .then( peliculas => {
             // Ordenado en reversa por id

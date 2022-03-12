@@ -18,7 +18,7 @@ botonEnviar.addEventListener('click' , evento =>{
         body: JSON.stringify(data)
     };
 
-    fetch('http://127.0.0.1:5000/api/login', requestOptions)
+    fetch('/api/login', requestOptions)
         .then( resp => resp.json())
         .then( validado => {
             if (validado){

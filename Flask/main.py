@@ -118,11 +118,11 @@ def retornar_pelicula_con_titulo(titulo):
         return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
-@app.route("/peliculas/<id>", methods=['GET'])
+@app.route("/pelicula/<id>", methods=['GET'])
 def retornar_pelicula_con_id(id):
     peliculas = db["peliculas"]
     for pelicula in peliculas:
-        if pelicula["id"] == id:
+        if pelicula["id"] == int(id):
             return jsonify(pelicula), HTTPStatus.OK
     return jsonify({}), HTTPStatus.BAD_REQUEST
 
@@ -165,18 +165,17 @@ def alta_pelicula():
         "imagen": data["imagen"],
         "trailer": data["trailer"],
         "promedio": data["promedio"],
-        "subidapor": data["subidapor"],
-        "comentarios": data["comentarios"]
+        "subidapor": data["subidapor"]
     }
     db["peliculas"].append(pelicula_nueva)
     return jsonify(pelicula_nueva), HTTPStatus.OK
 
 
-#maqueta, revisar.
-@app.route("/peliculas/<id>", methods=['PUT'])
-def modificar_pelicula(id):
+@app.route("/peliculas", methods=['PUT'])
+def modificar_pelicula():
     data = request.get_json()
-    nuevo = {
+    peliculas = db["peliculas"]
+    actualizado = {
         "titulo": data["titulo"],
         "anio": data["anio"],
         "genero": data["genero"],
@@ -185,28 +184,15 @@ def modificar_pelicula(id):
         "sinopsis": data["sinopsis"],
         "imagen": data["imagen"],
         "trailer": data["trailer"],
-        "promedio": data["promedio"],
-        "subidapor": data["subidapor"],
-        "comentarios": data["comentarios"]
+        "promedio": data["promedio"]
     }
-    db["peliculas"][id].update(nuevo)
-    # peliculas = db["peliculas"]
-    # for pelicula in peliculas:
-    #     if pelicula["id"] == int(id):
-    #         actualizacion = {
-    #             "titulo": data["titulo"],
-    #             "anio": data["anio"],
-    #             "genero": data["genero"],
-    #             "genero_sub": data["genero_sub"],
-    #             "director": data["director"],
-    #             "sinopsis": data["sinopsis"],
-    #             "imagen": data["imagen"],
-    #             "trailer": data["trailer"],
-    #             "promedio": data["promedio"],
-    #             "subidapor": data["subidapor"],
-    #             "comentarios": data["comentarios"]
-    #         }
-    return jsonify(db["peliculas"][id]), HTTPStatus.OK
+
+    peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == data["id"]), None)
+    if peli_index != None:
+        db["peliculas"][peli_index].update(actualizado)
+        peli = db["peliculas"][peli_index]
+        return jsonify(peli), HTTPStatus.OK
+    return jsonify(False), HTTPStatus.OK
 
 
 @app.route("/pelicula_portada", methods=['GET'])
@@ -252,9 +238,15 @@ def validar_login():
 
 @app.route("/test/<id>", methods=['GET'])
 def probando(id):
-    hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
-    peliculas = [peli for peli in db["peliculas"] if peli["id"] != int(id)]
-    return jsonify(peliculas)
+    # hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
+    # peliculas = [peli for peli in db["peliculas"] if peli["id"] != int(id)]
+    # return jsonify(peliculas)
+    peliculas = db["peliculas"]
+    peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == int(id)), None)
+    if peli_index != None:
+        peli = db["peliculas"][peli_index]
+        return jsonify(peli), HTTPStatus.OK
+    return jsonify(False), HTTPStatus.OK
 
 
 

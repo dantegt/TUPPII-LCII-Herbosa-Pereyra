@@ -124,6 +124,10 @@ main {
     margin: auto;
 }
 
+#agregar {
+    white-space: nowrap;
+}
+
 .titulo-principal { 
     color: #fff;
     font-size: 2em;
@@ -282,13 +286,12 @@ main {
 }
 
 .tupeli-peli-review {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-self: flex-start;
 }
 
 .tupeli-peli {
     margin-left: 1em;
-    z-index: -1;
 }
 
 .tupeli-titulo {
@@ -299,6 +302,9 @@ main {
 
 .tupeli-anio {
     display: inline-block;
+    font-size: 0.6em;
+    font-weight: 400;
+
 }
 
 .tupeli-anio::before {
@@ -307,6 +313,21 @@ main {
 
 .tupeli-anio::after {
     content: ")";
+}
+
+.tupeli-promedio {
+    display: inline-block;
+    font-size: .5em;
+    margin-right: .5em;
+    position: relative;
+    top: -1px;
+    filter: contrast(0);
+}
+
+.tupeli-director {
+    display: inline-block;
+    font-size: .8em;
+    filter: contrast(0);
 }
 
 .tupeli-descripcion {
@@ -319,21 +340,20 @@ main {
     overflow: hidden;
 }
 
-.tupeli-rating {
-    color: gold;
-}
-
 .tupeli-review {
     flex-wrap: wrap;
     margin-left: 1em;
 }
 
 .tupeli-comentario {
-    padding: 1em 0 .2em;
+    padding: 1em 0 0.3em;
     font-size: 1.1em;
     font-style: italic;
     font-family: 'Arvo', sans-serif;
+    text-align: justify;
     width: 100%;
+    border-bottom: 1px solid darkgray;
+    margin-bottom: 0.2em;
 }
 
 .tupeli-comentario::before {
@@ -344,12 +364,18 @@ main {
     content: "”";
 }
 
+.tupeli-rating {
+    color: gold;
+    display: inline-block;
+    font-size: 0.8em;
+}
+
 .tupeli-autor {
     font-style: italic;
     text-align: right;
     line-height: 1.5em;
-    margin-left: 1em;
-    width: 100%;
+    display: inline-block;
+    font-size: 0.8em;
 }
 
 .tupeli-imagen {
@@ -363,11 +389,92 @@ main {
     border-radius: 0.5em 0 0 0.5em;
 }
 
-.tupeli-promedio {
-    display: inline-block;
-    font-size: .7em;
-    filter: contrast(0);
+.tupeli-comentar {
+    align-self: flex-end;
+    margin-top: 1em;
 }
+
+.tupeli-comentar a {
+    font-size: .9em;
+    color: tomato;
+    border: 1px solid tomato;
+    padding: 0.5em;
+    display: inline-block;
+    border-radius: 0.4em;
+    text-decoration: none;
+}
+
+.tupeli-agregar-comentario {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 9;
+    box-shadow: 0 -10px 50px;
+    padding: 0 5vw 5vh;
+    backdrop-filter: blur(7px) brightness(.5);
+    color: white;
+    transition: all .5s ease-in-out;
+}
+
+.tupeli-agregar-comentario.ocultar {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.textarea-comentario {
+    width: 100%;
+    height: 5em;
+    font-size: 1em;
+    font-family: 'Inter';
+    border: 1px solid tomato;
+    padding: 0.3em;
+    box-sizing: border-box;
+}
+
+.botones-comentario {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+}
+
+.agregar-comentario-cerrar {
+    display: block;
+    padding: 1em;
+    text-align: right;
+    cursor: pointer;
+}
+
+.enviar_comentario {
+    padding: 1em 2em;
+    background: tomato;
+    height: 100%;
+    cursor: pointer;
+}
+
+.nombre-peli-promedio {
+    display: flex;
+}
+
+.nombre-peli-promedio #puntaje {
+    margin-left: 2em;
+}
+
+#pelicula-anio {
+    margin: 0.5em 0 0.5em;
+    text-shadow: 1px 1px tomato, 2px 2px tomato;
+}
+
+#director-perfil {
+    padding: 2em 1em;
+}
+
+#director-perfil .director {
+    display: flex;
+}
+
 
 /* CARGAR PELICULA */
 
@@ -578,18 +685,10 @@ main {
         width: 45%;
     }
 
-    .tupeli-peli-review {
-        flex-direction: column-reverse;
-    }
-
     .tupeli-review {
         justify-content: flex-end;
         align-items: flex-start;
         margin-bottom: auto;
-    }
-
-    .tupeli-comentario {
-        padding: 1em 0 .5em;
     }
 
     .tupeli-descripcion {
@@ -610,6 +709,23 @@ main {
 
     .tupeli.director {
         width: 45%
+    }
+
+    .tupeli-comentar {
+        align-self: self-end;
+        margin-top: 0.8em;
+        z-index: 9;
+    }
+
+    .tupeli-comentar a {
+        color: tomato;
+        border: solid 1px tomato;
+        text-decoration: none;
+        padding: 0.3em;
+        display: inline-block;
+        font-size: 0.9em;
+        border-radius: 0.7em;
+        z-index: 9;
     }
 
     .pie {

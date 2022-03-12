@@ -27,9 +27,9 @@ def api_docs():
 def directores():
     return render_template('directores.html')
 
-'''@app.route('/peliculas')
+@app.route('/peliculas')
 def api_peliculas():
-    return render_template('peliculas.html')'''
+    return render_template('peliculas.html')
 
 @app.route('/agregar')
 def api_agregar():
@@ -105,17 +105,30 @@ def editar_usuario():
 #        ***   PELICULAS   ***
 #
 
+@app.route("/api/peliculas", methods=['GET'])
+def retornar_todas_peliculas():
+    ultimas = db["peliculas"]
+    peliculas = []
+    for peli in ultimas:
+        peli["director"] = [d for d in db["directores"] if d["id_director"] == peli["id_director"]]
+        peli["comentarios"] = [com for com in db["comentarios"] if com["id_pelicula"] == peli["id"]]
+        for c in peli["comentarios"]:
+            [usuario] = [u for u in db["usuarios"] if u["id"] == c["id_usuario"]]
+            c["nombre"] = usuario["nombre"]
+        peliculas.append(peli)
+    return jsonify(peliculas)
+
 
 @app.route("/api/ultimas", methods=['GET'])
 def retornar_peliculas():
     ultimas = db["peliculas"][-10:]
     peliculas = []
     for peli in ultimas:
+        peli["director"] = [d for d in db["directores"] if d["id_director"] == peli["id_director"]]
         peli["comentarios"] = [com for com in db["comentarios"] if com["id_pelicula"] == peli["id"]]
         for c in peli["comentarios"]:
             [usuario] = [u for u in db["usuarios"] if u["id"] == c["id_usuario"]]
             c["nombre"] = usuario["nombre"]
-
         peliculas.append(peli)
     return jsonify(peliculas)
 
@@ -230,9 +243,10 @@ def retornar_directores():
 
 @app.route("/director/<id>", methods=['GET'])
 def retornar_pelicula_director(id):
-    id_director = int(id)
-    peliculas_director = [pelicula["titulo"] for pelicula in db["peliculas"] if pelicula["id_director"] == id_director]
-    return jsonify(peliculas_director), HTTPStatus.OK
+    director = [d for d in db["directores"] if d["id_director"] == int(id)]
+    for d in director:
+        d["peliculas"] = [p for p in db["peliculas"] if p["id_director"] == int(id)]
+    return render_template('director.html', director=director), HTTPStatus.OK
 
 
 @app.route("/api/login", methods=['POST'])
@@ -244,6 +258,27 @@ def validar_login():
                 user = {key: val for key, val in usuario.items() if key not in ["contrasenia"]}
                 return jsonify(user), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
+
+
+@app.route("/api/comentarios", methods=['POST'])
+def cargar_comentario():
+    data = request.get_json()
+    campos = {"id_usuario", "id_pelicula", "comentario", "puntaje"}
+    if data.keys() < campos:
+        return jsonify("Faltan campos"), HTTPStatus.BAD_REQUEST
+
+    comentario_nuevo = {
+        "id_usuario": data["id_usuario"],
+        "id_pelicula": data["id_pelicula"],
+        "comentario": data["comentario"],
+        "puntaje": data["puntaje"]
+    }
+    db["comentarios"].append(comentario_nuevo)
+    return jsonify(comentario_nuevo), HTTPStatus.OK
+
+@app.route("/api/comentarios", methods=['GET'])
+def todos_los_comentarios():
+    return jsonify(db["comentarios"]), HTTPStatus.OK
 
 @app.route("/test/<id>", methods=['GET'])
 def probando(id):

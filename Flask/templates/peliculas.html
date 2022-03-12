@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
+    <title>TUPeli</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='./images/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <h1 class="header-title">TUPeli</h1>
+            <div class="header-slogan">Tu opinión, tu puntuación, TUPeli 😉</div>
+        </div>
+        
+        <nav class="header-nav" id="navigation">
+            <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
+            <a href="/" class="link">Inicio</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+      
+        </nav>
+        <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
+    </header>
+
+    <main id="top10">
+        <h1 class="titulo-principal">Últimas pelis</h1>        
+    </main>
+    <footer class="pie">
+        <div class="columna">
+            <h3 class="titulo">TUPeli.tk</h3>
+            <a href="/" class="link">Top 10 reviews</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Escribinos!</h3>
+            <a href="mailto:hola@tupeli.tk" class="link">hola@tupeli.tk</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Creado con 💪 por:</h3>
+            <a href="https://www.linkedin.com/in/ezequiel-herbosa/" target="_blank">Ezequiel Herbosa</a>
+            <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
+        </div>
+    </footer>
+
+    <template id="pelicula">
+        <div class="tupeli">
+            <div class="tupeli-peli-review flex">
+                <div class="tupeli-review flex">
+                    <div class="tupeli-comentario">De las mejores pelis que vi! Los dinosaurios fueron muy creibles.</div>
+                    <div class="tupeli-rating">⭐⭐⭐⭐⭐</div>
+                    <div class="tupeli-autor ml-auto">El Dante</div>
+                </div>
+                <div class="tupeli-peli">
+                    <div class="tupeli-titulo">Jurassic Park</div>
+                    <div class="tupeli-anio">1993</div>
+                    <div class="tupeli-promedio">⭐⭐⭐⭐ 4.2</div>
+                    <div class="tupeli-descripcion">El multimillonario John Hammond hace realidad su sueño de clonar dinosaurios del Jurásico y crear con ellos un parque temático en una isla. Antes de abrir el parque al público general, Hammond invita a una pareja de científicos y a un matemático para que comprueben la viabilidad del proyecto.</div>
+                </div>
+            </div>
+            <div class="tupeli-imagen">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVvdES4O7zcoqcxElrT5cy33kFcDe4a20EzyB91x24yYMReIpy" alt="Jurassic Park" srcset="">
+            </div>
+        </div>
+    </template>
+    
+    <form class="tupeli-agregar-comentario ocultar" id="comentario-form">
+        <a class="typcn typcn-times agregar-comentario-cerrar" onclick="document.getElementById('comentario-form').classList.add('ocultar')"> Cerrar</a>
+        <div class="nombre-peli-promedio">
+            <h3 id="pelicula-anio">Pelicula (Año)</h3>
+            <select id="puntaje" name="puntaje">
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+        </div>
+        <textarea name="comentario" id="textarea-comentario" class="textarea-comentario" rows="4" placeholder="¿Qué te pareció la pelicula? ¡Contanos!"></textarea>
+        <div class="botones-comentario">
+            <input type="hidden" name="id_usuario" id="id_usuario">
+            <input type="hidden" name="id_pelicula" id="id_pelicula">
+            <button type="submit" class="enviar_comentario" id="enviar_comentario">Enviar</button>
+        </div>
+    </form>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script>
+    fetch('/api/peliculas')
+        .then( resp => resp.json())
+        .then( peliculas => {
+            // Ordenado en reversa por id
+            peliculas.sort((a, b) => a.id < b.id ? 1 : -1);
+            peliculas.forEach(p => {
+                const stars = p.promedio
+                const imagen = (p.imagen.length > 0) ? p.imagen : "static/images/default.png"
+                
+                // Formateamos comentarios para esa pelicula
+                let comentarios = ''
+                p.comentarios.forEach(c => {
+                    comentarios += `
+                    <div class="tupeli-review flex">
+                        <div class="tupeli-comentario">${c.comentario}</div>
+                        <div class="tupeli-rating">${"⭐".repeat(c.puntaje)}</div>
+                        <div class="tupeli-autor ml-auto">${c.nombre}</div>
+                    </div>`
+                })
+
+                // Formateamos el director
+                let director = ''
+                p.director.forEach(dire => {
+                    director += `<a href="/director/${dire.id_director}" class="tupeli-director">${dire.director}</a>`
+                })
+
+                // Agregamos botón de agregar comentario, si aplica
+                let boton_agregar_comentario = ''
+                if (logueado && user_logueado != p.subidapor) {
+                    boton_agregar_comentario = `<div class="tupeli-comentar" id="tupeli-comentar-${p.id}">
+                        <a href="javascript:void(0)" class="abrir-form-comentario" data-peli="${p.id}" data-nombre="${p.titulo}" data-anio="${p.anio}"><span class="typcn typcn-message-typing"></span> Agregar comentario</a>
+                        </div>`
+                }
+                
+                // Compilamos el elemento pelicula
+                let pelicula = `<div class="tupeli">
+                    <div class="tupeli-peli-review flex" id="peli-review-${p.id}">
+                        <div class="tupeli-peli">
+                            <div class="tupeli-titulo">${p.titulo}
+                                <div class="tupeli-anio">${p.anio}</div>
+                                <div class="tupeli-promedio">${"⭐".repeat(stars)} ${p.promedio}</div>
+                            </div>`
+                pelicula += director
+                pelicula += `<div class="tupeli-descripcion" title="${p.sinopsis}">${p.sinopsis}</div>
+                            </div>`
+                pelicula += comentarios
+                pelicula += boton_agregar_comentario
+                pelicula +=`</div>
+                        <div class="tupeli-imagen">
+                            <img src="${imagen}" alt="${p.titulo}" srcset="">
+                        </div>
+                    </div>`
+
+                document.getElementById("top10").innerHTML += pelicula
+            });
+        })
+
+        const form = document.getElementById("comentario-form")
+
+        let botonEnviarComentario = document.getElementById('enviar_comentario');
+        botonEnviarComentario.addEventListener('click' , evento =>{
+            evento.preventDefault()
+            let campoUsuario = document.getElementById('id_usuario').value;
+            let campoPelicula = document.getElementById('id_pelicula').value;
+            let campoPuntaje = document.getElementById('puntaje').value;
+            let campoComentario = document.getElementById('textarea-comentario').value;
+            let user_nombre = obtenerCookie("nombre")
+            
+            let data = {
+                "id_usuario": campoUsuario,
+                "id_pelicula": campoPelicula,
+                "comentario": campoComentario,
+                "puntaje": campoPuntaje
+            }
+            
+            let requestOptions = {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            };
+
+            fetch('/api/comentarios', requestOptions)
+                .then( resp => resp.json())
+                .then( c => {
+                    console.log(c)
+                    form.classList.add("ocultar")
+                    let review = document.getElementById(`peli-review-${c.id_pelicula}`)
+                    review.innerHTML += `<div class="tupeli-review flex">
+                        <div class="tupeli-comentario">${c.comentario}</div>
+                        <div class="tupeli-rating">${"⭐".repeat(c.puntaje)}</div>
+                        <div class="tupeli-autor ml-auto">${user_nombre}</div>
+                    </div>`
+                    document.getElementById(`tupeli-comentar-${c.id_pelicula}`).style.display = 'none'
+                })
+        })
+
+        document.body.addEventListener('click', function (evt) {
+            if (evt.target.className === 'abrir-form-comentario') {
+               
+                const peli_id = evt.target.dataset.peli
+                const peli_nombre = evt.target.dataset.nombre
+                const peli_anio = evt.target.dataset.anio
+
+                document.getElementById("pelicula-anio").textContent = `${peli_nombre} (${peli_anio})`
+                document.getElementById("id_pelicula").value = peli_id
+                document.getElementById("id_usuario").value = parseInt(user_logueado)
+                
+                form.classList.remove("ocultar")
+            }
+        }, false);
+    </script>
+</body>
+</html>

@@ -15,9 +15,12 @@
 html, body {
     box-sizing:content-box;
     margin: 0;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
     background: #384580;
     min-height: 100vh;
+}
+
+html, body, input, textarea {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .row {
@@ -25,6 +28,7 @@ html, body {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    align-content: flex-start;
 }
   
 .column {
@@ -479,7 +483,6 @@ main {
 /* CARGAR PELICULA */
 
 #formulario_carga {
-    padding: 1em;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -508,6 +511,22 @@ main {
     opacity: .5;
     padding: 0;
     margin: 0;
+}
+
+.titulo-formulario {
+    margin: 0 0 0 0.7em;
+    padding-bottom: 0.5em;
+    color: white;
+    border-bottom: 1px solid white;
+    width: 100%;
+}
+
+#agregar-peli {
+    background: tomato;
+    color: white;
+    border: none;
+    padding: 1em !important;
+    cursor: pointer;
 }
 
 /* DIRECTORES */
@@ -654,7 +673,8 @@ main {
 
     .titulo-principal { 
         font-size: 3em;
-        margin: 1em .5em .5em;
+        box-sizing: border-box;
+        width: 90%;
     }
 
     #login {

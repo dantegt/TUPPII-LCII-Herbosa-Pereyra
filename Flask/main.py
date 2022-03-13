@@ -122,15 +122,15 @@ def retornar_todas_peliculas():
 @app.route("/api/ultimas", methods=['GET'])
 def retornar_peliculas():
     ultimas = db["peliculas"][-10:]
-    peliculas = []
+    pelis = []
     for peli in ultimas:
         peli["director"] = [d for d in db["directores"] if d["id_director"] == peli["id_director"]]
         peli["comentarios"] = [com for com in db["comentarios"] if com["id_pelicula"] == peli["id"]]
         for c in peli["comentarios"]:
             [usuario] = [u for u in db["usuarios"] if u["id"] == c["id_usuario"]]
             c["nombre"] = usuario["nombre"]
-        peliculas.append(peli)
-    return jsonify(peliculas)
+        pelis.append(peli)
+    return jsonify(pelis)
 
 
 @app.route("/api/peliculas/<data>", methods=['GET'])
@@ -163,29 +163,34 @@ def alta_pelicula():
     # Validar data que viene del pedido
     # data.keys() >= {"usuario", "titulo"}  retorna true si hay coincidencia
 
-    campos = {"usuario", "titulo", "genero", "director", "sinopsis", "imagen", "trailer", "promedio", "subidapor", "comentarios"}
+    campos = {"titulo", "anio", "genero", "genero_sub", "id_director", "sinopsis", "imagen", "trailer", "subidapor", "puntaje", "comentario"}
     if data.keys() < campos:
-        return jsonify("Falta usuario o titulo"), HTTPStatus.BAD_REQUEST
-
-    if not existe_usuario(data["usuario"]):
-        return jsonify("Quien te conoce papa."), HTTPStatus.BAD_REQUEST
+        return jsonify("Faltan campos en el pedido"), HTTPStatus.BAD_REQUEST
 
     if existe_pelicula(data["titulo"]):
         return jsonify("La pelicula ya fue cargada por otro usuario."), HTTPStatus.BAD_REQUEST
+    
+    next_peli_id = int(db["peliculas"][-1]["id"]) + 1
+    comentario_nuevo = {
+        "id_usuario": data["subidapor"],
+        "id_pelicula": next_peli_id,
+        "comentario": data["comentario"],
+        "puntaje": data["puntaje"]
+    }
+    db["comentarios"].append(comentario_nuevo)
 
-    next_id = int(db["peliculas"][-1]["id"]) + 1
     pelicula_nueva = {
-        "id": next_id,
+        "id": next_peli_id,
         "titulo": data["titulo"],
         "anio": data["anio"],
         "genero": data["genero"],
         "genero_sub": data["genero_sub"],
-        "director": data["director"],
+        "id_director": data["id_director"],
         "sinopsis": data["sinopsis"],
         "imagen": data["imagen"],
         "trailer": data["trailer"],
-        "promedio": data["promedio"],
-        "subidapor": data["subidapor"]
+        "subidapor": data["subidapor"],
+        "promedio": data["puntaje"]
     }
     db["peliculas"].append(pelicula_nueva)
     return jsonify(pelicula_nueva), HTTPStatus.OK

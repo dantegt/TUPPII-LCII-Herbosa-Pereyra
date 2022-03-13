@@ -33,7 +33,7 @@
             <div id="formulario_carga">
             <div class="input-group col12">
                 <label for="titulo">Titulo: </label>
-                <input type="text" id="lname" name="lastname" placeholder="titulo pelicula">
+                <input type="text" id="titulo" name="titulo" placeholder="titulo pelicula">
             </div>
             <div class="input-group col18">
                 <label for="anio">Año: </label>
@@ -74,6 +74,7 @@
             </div>
             
             <div class="input-group col14">
+                <label for="promedio">Promedio: </label>
                 <select id="promedio" name="promedio">
                     <option value="5">⭐⭐⭐⭐⭐</option>
                     <option value="4">⭐⭐⭐⭐</option>
@@ -136,6 +137,14 @@
                     selectSubGeneros.innerHTML += `<option value="${valor}">${genero}</option>`
                 });
             })
+
+        let lis = document.getElementById("formulario_carga").getElementsByTagName("label");
+        let arr = []
+        for (li of lis) {
+            arr.push(li.getAttribute("for"))
+        }
+        console.log(arr); // paints for
+        
     </script>
 
 </body>

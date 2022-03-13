@@ -135,9 +135,9 @@
             .then( generos => {
                 const selectGeneros = document.getElementById("genero")
                 const selectSubGeneros = document.getElementById("genero_sub")
-                generos.forEach((genero, valor) => {
-                    selectGeneros.innerHTML += `<option value="${valor}">${genero}</option>`
-                    selectSubGeneros.innerHTML += `<option value="${valor}">${genero}</option>`
+                generos.forEach((genero) => {
+                    selectGeneros.innerHTML += `<option value="${genero}">${genero}</option>`
+                    selectSubGeneros.innerHTML += `<option value="${genero}">${genero}</option>`
                 });
             })
 

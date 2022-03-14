@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
+    <title>TUPeli.tk</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <h1 class="header-title">TUPeli</h1>
+            <div class="header-slogan">Tu opinión, tu puntuación, TUPeli 😉</div>
+        </div>
+        
+        <nav class="header-nav" id="navigation">
+            <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
+            <a href="/" class="link">Inicio</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+      
+        </nav>
+        <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
+    </header>
+    
+    <main class="top10">
+        <h1 class="titulo-principal">Borrar pelicula</h2>
+            <div id="errorAuth">Se borró la película con éxito!<br/>Redigiendo al inicio en 3 seg...</div>
+        </div>
+
+        </div>    
+    </main>
+
+    <footer class="pie">
+        <div class="columna">
+            <h3 class="titulo">TUPeli.tk</h3>
+            <a href="/" class="link">Top 10 reviews</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Escribinos!</h3>
+            <a href="mailto:hola@tupeli.tk" class="link">hola@tupeli.tk</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Creado con 💪 por:</h3>
+            <a href="https://www.linkedin.com/in/ezequiel-herbosa/" target="_blank">Ezequiel Herbosa</a>
+            <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script>
+        const borradoMensaje = document.getElementById("borrado")
+        const errors = document.getElementById("errorAuth")
+        let id_pelicula = window.location.pathname.split('/')[2]
+
+        let data = {
+            id_pelicula: id_pelicula,
+            id_usuario: user_logueado
+        }
+        
+        let requestOptions = {
+            method: 'DELETE',
+            mode: 'cors', 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        };
+
+        fetch('/api/peliculas/'+id_pelicula, requestOptions)
+            .then( resp => resp.json())
+            .then( borrado => {
+                if (!borrado) {
+                    borrado.style.display = "none"
+                    errors.style.display = "flex"
+                    errors.innerHTML = "<span class='typcn icon typcn-warning'></span> <div class='mensaje-error'>Usted no tiene permiso para borrar esta película porque tiene comentarios de otros. Disculpe las molestias<div>"
+                }
+                setTimeout(() => {window.location = "/"}, 3000)
+                //setTimeout(function(){location.href="/"} , 3000);
+                console.log(borrado)
+                console.log("pelicula borrada, redireccionando a home");
+            })
+
+    </script>
+
+</body>
+</html>

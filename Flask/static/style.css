@@ -19,7 +19,7 @@ html, body {
     min-height: 100vh;
 }
 
-html, body, input, textarea {
+html, body, input, textarea, select, option {
     font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
@@ -479,6 +479,19 @@ main {
     display: flex;
 }
 
+#errorAuth {
+    display: hidden;
+    width: 100%;
+    justify-content: space-around;
+    background: white;
+    padding: 3em;
+    box-sizing: border-box;
+}
+
+.mensaje-error {
+    display: inline-block;
+    padding: 1em;
+}
 
 /* CARGAR PELICULA */
 

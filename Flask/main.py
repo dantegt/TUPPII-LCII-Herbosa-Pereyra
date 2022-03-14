@@ -35,6 +35,10 @@ def api_peliculas():
 def api_agregar():
     return render_template('agregar.html')
 
+@app.route('/editar/<id>')
+def api_editar(id):
+    return render_template('editar.html')
+
 @app.route('/typicons')
 def typicons_demo():
     return render_template('typicons.html')
@@ -282,6 +286,11 @@ def cargar_comentario():
 @app.route("/api/comentarios", methods=['GET'])
 def todos_los_comentarios():
     return jsonify(db["comentarios"]), HTTPStatus.OK
+
+@app.route("/api/comentarios/<peli>/<user>", methods=['GET'])
+def comentario_owner(peli, user):
+    [comentario] = [c for c in db["comentarios"] if c["id_usuario"] == int(user) and c["id_pelicula"] == int(peli)]
+    return jsonify(comentario), HTTPStatus.OK
 
 @app.route("/api/generos", methods=['GET'])
 def obtener_generos():

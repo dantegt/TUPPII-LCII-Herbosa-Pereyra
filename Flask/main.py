@@ -39,6 +39,10 @@ def api_agregar():
 def api_editar(id):
     return render_template('editar.html')
 
+@app.route('/borrar/<id>')
+def api_borrar(id):
+    return render_template('borrar.html')
+
 @app.route('/typicons')
 def typicons_demo():
     return render_template('typicons.html')
@@ -158,6 +162,13 @@ def existe_pelicula(titulo):
             return pelicula
     return False
 
+def buscar_pelicula(titulo):
+    peliculas = db["peliculas"]
+    for pelicula in peliculas:
+        if pelicula['titulo'].lower() in titulo.lower():
+            return pelicula
+    return False
+
 
 
 @app.route("/api/peliculas", methods=['POST'])
@@ -194,8 +205,7 @@ def alta_pelicula():
         "imagen": data["imagen"],
         "trailer": data["trailer"],
         "subidapor": data["subidapor"],
-        "promedio": data["puntaje"],
-        "comentario": data["comentario"]
+        "promedio": data["puntaje"]
     }
     db["peliculas"].append(pelicula_nueva)
     return jsonify(pelicula_nueva), HTTPStatus.OK
@@ -204,20 +214,38 @@ def alta_pelicula():
 @app.route("/api/peliculas", methods=['PUT'])
 def modificar_pelicula():
     data = request.get_json()
+    comentarios = db["comentarios"]
+    coment_index = next((index for (index, c) in enumerate(comentarios) if (c['id_pelicula'] == int(data["id_pelicula"]) and c["id_usuario"] == int(data["id_usuario"]))), None)
+
+    comentario_nuevo = {
+        "id_pelicula": int(data["id_pelicula"]),
+        "id_usuario": int(data["id_usuario"]),
+        "comentario": data["comentario"],
+        "puntaje": int(data["puntaje"])
+    }
+
+    if coment_index != None:
+        db["comentarios"][coment_index].update(comentario_nuevo)
+    
+    id_pelicula = data["id_pelicula"]
+    promedio = recalcular_promedio(id_pelicula)
+    
     peliculas = db["peliculas"]
     actualizado = {
+        "id": int(data["id_pelicula"]),
         "titulo": data["titulo"],
-        "anio": data["anio"],
+        "anio": int(data["anio"]),
         "genero": data["genero"],
         "genero_sub": data["genero_sub"],
-        "director": data["director"],
+        "id_director": int(data["id_director"]),
         "sinopsis": data["sinopsis"],
         "imagen": data["imagen"],
         "trailer": data["trailer"],
-        "puntaje": data["puntaje"]
+        "promedio": promedio,
+        "subidapor": int(data["id_usuario"])
     }
 
-    peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == data["id"]), None)
+    peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == int(data["id_pelicula"])), None)
     if peli_index != None:
         db["peliculas"][peli_index].update(actualizado)
         peli = db["peliculas"][peli_index]
@@ -231,17 +259,24 @@ def retornar_peliculas_con_portada():
     return jsonify(portadas), HTTPStatus.OK
 
 
+def recalcular_promedio(id_pelicula):
+    puntajes = [c["puntaje"] for c in db["comentarios"] if c["id_pelicula"] == int(id_pelicula)]
+    if len(puntajes) == 0:
+        return sum(puntajes)    
+    return round(sum(puntajes) /  len(puntajes), 1)
 
-@app.route("/api/pelicula", methods=['DELETE'])
-def borrar_pelicula():
+
+
+@app.route("/api/peliculas/<id>", methods=['DELETE'])
+def borrar_pelicula(id):
     # recibir datos por parte del cliente
     data = request.get_json()
 
-    hay_comentarios_adicionales = any(c["id_pelicula"] == data["id_pelicula"] and c["id_usuario"] != data["id_usuario"] for c in db["comentarios"])
+    hay_comentarios_adicionales = any(c["id_pelicula"] == int(data["id_pelicula"]) and c["id_usuario"] != int(data["id_usuario"]) for c in db["comentarios"])
     if hay_comentarios_adicionales:
         return jsonify("MAMA! Saca la mano de ahí carajo. Hay comentarios de otros!"), HTTPStatus.BAD_REQUEST
     
-    db["peliculas"] = [peli for peli in db["peliculas"] if peli["id"] != data["id_pelicula"]]
+    db["peliculas"] = [peli for peli in db["peliculas"] if peli["id"] != int(data["id_pelicula"])]
     return jsonify("Se borró la película"), HTTPStatus.OK
 
 
@@ -290,7 +325,7 @@ def todos_los_comentarios():
 
 @app.route("/api/comentarios/<peli>/<user>", methods=['GET'])
 def comentario_owner(peli, user):
-    [comentario] = [c for c in db["comentarios"] if c["id_usuario"] == int(user) and c["id_pelicula"] == int(peli)]
+    [comentario] = [c for c in db["comentarios"] if int(c["id_usuario"]) == int(user) and int(c["id_pelicula"]) == int(peli)]
     return jsonify(comentario), HTTPStatus.OK
 
 @app.route("/api/generos", methods=['GET'])
@@ -302,11 +337,14 @@ def probando(id):
     # hay_comentarios_adicionales = any(c["id_pelicula"] == 1 and c["id_usuario"] != 2 for c in db["comentarios"])
     # peliculas = [peli for peli in db["peliculas"] if peli["id"] != int(id)]
     # return jsonify(peliculas)
-    peliculas = db["peliculas"]
-    peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == int(id)), None)
-    if peli_index != None:
-        peli = db["peliculas"][peli_index]
-        return jsonify(peli), HTTPStatus.OK
+    # peliculas = db["peliculas"]
+    # peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == int(id)), None)
+    # if peli_index != None:
+    #     peli = db["peliculas"][peli_index]
+    puntajes = [c["puntaje"] for c in db["comentarios"] if c["id_pelicula"] == int(id)]
+    #return jsonify(puntajes), HTTPStatus.OK
+    return jsonify(round(sum(puntajes) /  len(puntajes), 1)), HTTPStatus.OK
+    return jsonify(recalcular_promedio(id)), HTTPStatus.OK
     return jsonify(False), HTTPStatus.OK
 
 app.run(debug=True)

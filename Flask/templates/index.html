@@ -125,6 +125,15 @@
                         <a href="javascript:void(0)" class="abrir-form-comentario" data-peli="${p.id}" data-nombre="${p.titulo}" data-anio="${p.anio}"><span class="typcn typcn-message-typing"></span> Agregar comentario</a>
                         </div>`
                 }
+
+                 // Agregamos botón de editar
+                 let boton_editar_pelicula = ''
+                if (logueado && user_logueado == p.subidapor) {
+                    boton_editar_pelicula = `<div class="tupeli-comentar">
+                        <a href="/editar/${p.id}" class="abrir-form-comentario"><span class="typcn typcn-edit"></span> Editar Pelicula</a>
+                        <a href="/borrar/${p.id}" class="abrir-form-comentario"><span class="typcn typcn-delete"></span> Borrar Pelicula</a>
+                        </div>`
+                }
                 
                 // Compilamos el elemento pelicula
                 let pelicula = `<div class="tupeli">
@@ -138,6 +147,7 @@
                 pelicula += `<div class="tupeli-descripcion" title="${p.sinopsis}">${p.sinopsis}</div>
                             </div>`
                 pelicula += comentarios
+                pelicula += boton_editar_pelicula
                 pelicula += boton_agregar_comentario
                 pelicula +=`</div>
                         <div class="tupeli-imagen">

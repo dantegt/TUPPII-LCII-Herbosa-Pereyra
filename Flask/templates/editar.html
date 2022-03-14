@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reviews y comentarios sobre peliculas por sus propios espectadores." />
+    <title>TUPeli.tk</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <h1 class="header-title">TUPeli</h1>
+            <div class="header-slogan">Tu opinión, tu puntuación, TUPeli 😉</div>
+        </div>
+        
+        <nav class="header-nav" id="navigation">
+            <a class="typcn typcn-times menu-mobile cerrar" id="mobile-cerrar"> Cerrar</a>
+            <a href="/" class="link">Inicio</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+      
+        </nav>
+        <a class="typcn typcn-th-menu menu-mobile" id="mobile-hamburger"></a>
+    </header>
+    
+    <main class="top10">
+        <h1 class="titulo-principal">Editar pelicula</h2>
+            <div id="errorAuth"></div>
+            <form id="formulario_carga">
+                <div class="col12 row">
+                    <h2 class="titulo-formulario">Datos de la peli</h2>
+                    <input type="hidden" name="id_pelicula" id="id_pelicula">
+                    <input type="hidden" name="id_usuario" id="id_usuario">
+                <div class="input-group col1">
+                    <label for="titulo">Titulo: </label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ingrese titulo de la pelicula...">
+                </div>
+                <div class="input-group col13">
+                    <label for="anio">Año: </label>
+                    <select id="anio" name="anio">
+                    </select>
+                </div>
+                <div class="input-group col13">
+                    <label for="genero">Genero: </label>
+                    <select id="genero" name="genero">
+                        <option disabled selected value=" "> Genero </option>
+                    </select>
+                </div>
+                <div class="input-group col13">
+                    <label for="genero_sub">Sub genero: </label>
+                    <select id="genero_sub" name="genero_sub">
+                        <option disabled selected value=" "> Sub Genero </option>
+                    </select>
+                </div>
+                <div class="input-group col12">
+                    <label for="id_director">Director</label>
+                    <select id="id_director" name="id_director">
+                        <option disabled selected value=" "> Director </option>
+                    </select>
+                </div>
+                <div class="input-group col12">
+                    <label for="imagen">Portada: </label>
+                    <input type="url" id="imagen" name="imagen" placeholder="Link a la imágen de portada">
+                </div>
+                <div class="input-group col12">
+                    <label for="trailer">Trailer: </label>
+                    <input type="url" id="trailer" name="trailer" placeholder="Link al trailer">
+                </div>
+                <div class="input-group col12">
+                    <label for="sinopsis">Sinopsis</label>
+                    <textarea id="sinopsis" name="sinopsis" placeholder="Sinopsis" style="height:200px"></textarea>
+                </div>
+            </div>
+            <div class="col12 row">
+                <h2 class="titulo-formulario col1">Opinión</h2>
+                <div class="input-group col12">
+                    <label for="puntaje">Puntaje: </label>
+                    <select id="puntaje" name="puntaje">
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                    </select>         
+                </div>
+                <div class="input-group col1">
+                    <label for="comentario">Comentarios</label>
+                    <textarea id="comentario" name="comentario" placeholder="¿Qué te pareció la pelicula? ¡Contanos!" style="height:200px"></textarea>
+                </div>
+                <div class="input-group col12">
+                </div>  
+                <div class="input-group col12">
+                    <input type="submit" value="Editar" id="editar-peli">
+                </div>    
+            </div>
+        </form>
+        </div>
+
+        </div>    
+    </main>
+
+    <footer class="pie">
+        <div class="columna">
+            <h3 class="titulo">TUPeli.tk</h3>
+            <a href="/" class="link">Top 10 reviews</a>
+            <a href="/directores" class="link">Directores</a>
+            <a href="/peliculas" class="link">Peliculas</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Escribinos!</h3>
+            <a href="mailto:hola@tupeli.tk" class="link">hola@tupeli.tk</a>
+        </div>
+        <div class="columna">
+            <h3 class="titulo">Creado con 💪 por:</h3>
+            <a href="https://www.linkedin.com/in/ezequiel-herbosa/" target="_blank">Ezequiel Herbosa</a>
+            <a href="https://www.linkedin.com/in/dante-pereyra/" class="_blank">Dante Pereyra</a>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script>
+        fetch('/api/directores')
+            .then( resp => resp.json())
+            .then( directores => {
+                const selectDirectores = document.getElementById("id_director")
+                directores.forEach(d => {
+                    selectDirectores.innerHTML += `<option value="${d.id_director}">${d.director}</option>`
+                });
+            })
+
+        fetch('/api/generos')
+            .then( resp => resp.json())
+            .then( generos => {
+                const selectGeneros = document.getElementById("genero")
+                const selectSubGeneros = document.getElementById("genero_sub")
+                generos.forEach((genero) => {
+                    selectGeneros.innerHTML += `<option value="${genero}">${genero}</option>`
+                    selectSubGeneros.innerHTML += `<option value="${genero}">${genero}</option>`
+                });
+            })
+
+        let pelicula_id = window.location.pathname.split('/')[2]
+        fetch('/api/peliculas/'+pelicula_id)
+            .then( resp => resp.json())
+            .then( peli => {
+                const form = document.getElementById("formulario_carga")
+                const errors = document.getElementById("errorAuth")
+                if(peli.subidapor != user_logueado) {
+                    form.innerHTML = ""
+                    errors.style.display = "flex"
+                    errors.innerHTML = "<span class='typcn icon typcn-warning'></span> <div class='mensaje-error'>Usted no tiene permiso para editar esta película. Contacte con quien la creó. Gracias!<div>"
+                } else { 
+                    form.elements["id_pelicula"].value = peli.id
+                    form.elements["id_usuario"].value = user_logueado
+                    form.elements["titulo"].value = peli.titulo
+                    form.elements["anio"].value = peli.anio
+                    form.elements["genero"].value = peli.genero
+                    form.elements["genero_sub"].value = peli.genero_sub
+                    form.elements["id_director"].value = peli.id_director
+                    form.elements["imagen"].value = peli.imagen
+                    form.elements["trailer"].value = peli.trailer
+                    form.elements["sinopsis"].value = peli.sinopsis
+
+                    //Obtener el comentario original
+                    fetch(`/api/comentarios/${pelicula_id}/${user_logueado}`)
+                    .then( resp => resp.json())
+                    .then( c => {
+                        form.elements["comentario"].value = c.comentario
+                        form.elements["puntaje"].value = c.puntaje
+                    })
+                }
+            })
+
+        var anios = document.getElementById("anio")
+        for(var i = 1900; i <= 2022; i++) {
+            var selected = (i == 2022) ? 'selected' : ''
+            anios.innerHTML += `<option value="${i}" ${selected}>${i}</option>`
+        }
+
+        const form = document.getElementById('formulario_carga')
+        form.addEventListener('submit' , evento =>{
+            evento.preventDefault()
+            
+            let data = {
+                id_pelicula: form.elements["id_pelicula"].value,
+                id_usuario: form.elements["id_usuario"].value,
+                titulo: form.elements["titulo"].value,
+                anio: parseInt(form.elements["anio"].value),
+                genero: form.elements["genero"].value,
+                genero_sub: form.elements["genero_sub"].value,
+                id_director: parseInt(form.elements["id_director"].value),
+                sinopsis: form.elements["sinopsis"].value,
+                imagen: form.elements["imagen"].value,
+                trailer: form.elements["trailer"].value,
+                puntaje: form.elements["puntaje"].value,
+                comentario: form.elements["comentario"].value,
+                subidapor: parseInt(user_logueado)
+            }
+            
+            let requestOptions = {
+                method: 'PUT',
+                mode: 'cors', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            };
+
+            fetch('/api/peliculas', requestOptions)
+                .then( resp => resp.json())
+                .then( validado => {
+                    console.log(validado)
+                    console.log("pelicula editada, redireccionando a home");
+                    window.location = "/";
+                })
+        })
+
+    </script>
+
+</body>
+</html>

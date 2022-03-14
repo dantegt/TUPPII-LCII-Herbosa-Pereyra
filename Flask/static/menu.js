@@ -11,9 +11,8 @@ let obtenerCookie = (nombre) => {
     return c.substring(i+nombre.length+1)
 }
 
-
 if (logueado) {
-    nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar</a><a href="/perfil" class="link" id="perfil">Perfil</a>'
+    nav.innerHTML += '<a href="/agregar" class="link" id="agregar">+ Agregar</a><a href="javascript:void(0)" class="link" id="salir">Salir</a>'
     // Usuario actualmente logueado
     user_logueado = obtenerCookie("id")
 } else {
@@ -23,4 +22,6 @@ if (logueado) {
 // Navegacion Mobile
 document.getElementById("mobile-hamburger").addEventListener("click", () => nav.classList.add("mobile-active"));
 document.getElementById("mobile-cerrar").addEventListener("click", () => nav.classList.remove("mobile-active"));
-
+document.getElementById("salir").addEventListener("click", () => document.cookie.split(';').forEach(c => {
+    document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+}))

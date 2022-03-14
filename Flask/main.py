@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from flask import Flask, jsonify, request, render_template
+import webbrowser
+from flask import Flask, jsonify, redirect, request, render_template, url_for
 from flask_cors import CORS
 import json
 
@@ -21,7 +22,8 @@ def ingresar():
 
 @app.route('/api')
 def api_docs():
-    return render_template('api_docs.html')
+    webbrowser.open("https://documenter.getpostman.com/view/5224082/UVsJwSeB")
+    return redirect(url_for("index"))
 
 @app.route('/directores')
 def directores():
@@ -42,8 +44,7 @@ def api_editar(id):
 @app.route('/typicons')
 def typicons_demo():
     return render_template('typicons.html')
-
-    
+ 
 
 #
 #        ***   USUARIOS   ***

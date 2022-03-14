@@ -76,8 +76,8 @@
         "sinopsis": "La verdadera historia de cómo el empresario Oskar Schindler salvó más de mil vidas judías de los nazis mientras trabajaban como esclavos en su fábrica durante la Segunda Guerra Mundial.",
         "imagen": "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
         "trailer": "https://www.youtube.com/watch?v=BmkchuRJ82w",
-        "promedio": 4,
-        "subidapor": 4
+        "promedio": 3,
+        "subidapor": 2
       },
       {
         "id": 7,
@@ -197,7 +197,7 @@
         "subidapor": 3
       },
       {
-        "id": 14,
+        "id": 16,
         "titulo": "El hombre del rey",
         "anio": 2021,
         "genero": "Aventura",
@@ -210,7 +210,7 @@
         "subidapor": 2
       },
       {
-        "id": 15,
+        "id": 17,
         "titulo": "Scream",
         "anio": 2022,
         "genero": "Suspenso",
@@ -223,7 +223,7 @@
         "subidapor": 3
       },
       {
-        "id": 16,
+        "id": 18,
         "titulo": "Historia del lado oeste",
         "anio": 2021,
         "genero": "Romantica",
@@ -236,7 +236,7 @@
         "subidapor": 3
       },
       {
-        "id": 17,
+        "id": 19,
         "titulo": "Callejón de las Pesadillas",
         "anio": 2021,
         "genero": "Terror",
@@ -249,7 +249,7 @@
         "subidapor": 2
       },
       {
-        "id": 18,
+        "id": 20,
         "titulo": "Encanto",
         "anio": 2021,
         "genero": "Animacion",
@@ -262,7 +262,7 @@
         "subidapor": 4
       },
       {
-        "id": 19,
+        "id": 21,
         "titulo": "Las resurrecciones de Matrix",
         "anio": 2021,
         "genero": "Ciencia Ficción",
@@ -275,7 +275,7 @@
         "subidapor": 4
       },
       {
-        "id": 20,
+        "id": 22,
         "titulo": "Inexplorado",
         "anio": 2022,
         "genero": "Acción",
@@ -288,7 +288,7 @@
         "subidapor": 1
       },
       {
-        "id": 21,
+        "id": 23,
         "titulo": "Eternos",
         "anio": 2021,
         "genero": "Ciencia Ficcoón",
@@ -301,7 +301,7 @@
         "subidapor": 2
       },
       {
-        "id": 22,
+        "id": 24,
         "titulo": "Cyrano",
         "anio": 2022,
         "genero": "Drama",
@@ -314,7 +314,7 @@
         "subidapor": 2
       },
       {
-        "id": 23,
+        "id": 25,
         "titulo": "Spider-Man: Un nuevo universo",
         "anio": 2018,
         "genero": "Animacion",
@@ -327,7 +327,7 @@
         "subidapor": 2
       },
       {
-        "id": 24,
+        "id": 26,
         "titulo": "La guerra de las galaxias. Episodio V: El imperio contraataca",
         "anio": 1980,
         "genero": "Ciencia Ficción",
@@ -340,7 +340,7 @@
         "subidapor": 4
       },
       {
-        "id": 25,
+        "id": 27,
         "titulo": "El señor de los anillos: La comunidad del anillo",
         "anio": 2001,
         "id_director": 24,
@@ -353,7 +353,7 @@
         "subidapor": 4
       },
       {
-        "id": 26,
+        "id": 28,
         "titulo": "Interstellar",
         "anio": 2014,
         "id_director": 10,
@@ -418,7 +418,164 @@
         "id_pelicula": 3,
         "comentario": "Me encantó la película! Fue como leer los libros con más efectos especiales.",
         "puntaje": 5
-      }
+      },
+      {
+        "id_pelicula": 3,
+        "id_usuario": 1,
+        "comentario": "Genial! no lei los libros pero muy buena",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 4,
+        "id_usuario": 1,
+        "comentario": "La madre de las películas de prisión y una que cualquier persona debería ver alguna vez.",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 5,
+        "id_usuario": 3,
+        "comentario": "Clasico, clasico, clasico 👏, sin El Padrino no hay GTA",
+        "puntaje": 2
+    },
+    {
+        "id_pelicula": 6,
+        "id_usuario": 4,
+        "comentario": "Me aburrio un poco, pero la fotografia es excelente",
+        "puntaje": 3
+    },
+    {
+        "id_pelicula": 7,
+        "id_usuario": 3,
+        "comentario": "Otra maravilla de Coppola",
+        "puntaje": 2
+    },
+    {
+        "id_pelicula": 8,
+        "id_usuario": 2,
+        "comentario": "Entretenida, no es la historia mas original del cine pero tampoco está mal",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 9,
+        "id_usuario": 1,
+        "comentario": " personalmente no me gusta el anime, asi que cuando me vi la pelicula pensé que era otro anime sin sentido , pero cuando la termine de ver , me pareció BUENA, siendo sincero el OSCAR lo tenia merecido",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 10,
+        "id_usuario": 1,
+        "comentario": "Ni Nostradamus o Baba Vanga predijeron tan bien el 2020 como Parasite.",
+        "puntaje": 2
+    },
+    {
+        "id_pelicula": 11,
+        "id_usuario": 3,
+        "comentario": "Todos estamos de aceurdo en lo mismo, el mejor Jocker por lejos, lejisimos, toda de Heath Ledger la pelicula.",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 12,
+        "id_usuario": 3,
+        "comentario": "La mejor película de Tarantino sin lugar a dudas con un reparto de lujo para una película de lujo. Contra más veces se ve, más te gusta.",
+        "puntaje": 3
+    },
+    {
+        "id_pelicula": 13,
+        "id_usuario": 4,
+        "comentario": "Muy buena bastante larga pero vale la pena grandisimas actuaciones de los 3 ***Spoiler-Alert*** ",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 14,
+        "id_usuario": 1,
+        "comentario": "Es una de las películas que sin importar la crítica que reciba en el cine con el tiempo se va a volver una de las favoritas del público por su fotografía, trama, música y el giro con el que se maneja al súper héroe.",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 15,
+        "id_usuario": 3,
+        "comentario": "No hay un solo cuadro de esta película que no maximice el potencial de esta historia, su ingenio, humor o encanto. Cada momento cuenta y transforma Turning Red en un festín visual",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 16,
+        "id_usuario": 2,
+        "comentario": "el tono por el que va a emplear Vaughn es diferente al de las otras dos películas de la saga.",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 17,
+        "id_usuario": 3,
+        "comentario": "Simple y llanamente la mejor secuela, o debería decir recuela de Scream jajaja.",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 18,
+        "id_usuario": 3,
+        "comentario": "Muy buena, muy entretenida. Me ha encantado. El giro final te hiela la sangre. Un personaje tan tierno y noble como Eli no se merecía eso.",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 19,
+        "id_usuario": 2,
+        "comentario": "Visualmente suntuosa, musicalmente bien acompañada, aderezada con la intriga y los juegos mentales propios de las cintas del genero noir",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 20,
+        "id_usuario": 4,
+        "comentario": "Es una hermosa película, muy bien hecha. Un ambiente muy divertido, colorido y cálido. Mucho ritmo y con un gran mensaje para todos!",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 21,
+        "id_usuario": 4,
+        "comentario": "Me gustó, es una historia diferente pero sin duda mejor que Reloaded y Revolutions, comienza muy bien con escenas de acción y que rápidamente te llevan a cuestionarte que demonios esta pasando",
+        "puntaje": 4
+    },
+    {
+        "id_pelicula": 22,
+        "id_usuario": 1,
+        "comentario": "Mala, genérica, sin alma, predecible, no destaca en absolutamente nada, es como una lista de clichés uno detrás de otro de lo que una película típica de aventuras debe tener.",
+        "puntaje": 1
+    },
+    {
+        "id_pelicula": 23,
+        "id_usuario": 2,
+        "comentario": "Es larga y sin fundamento y sólo emocionan los efectos especiales",
+        "puntaje": 2
+    },
+    {
+        "id_pelicula": 24,
+        "id_usuario": 2,
+        "comentario": "Peter Dinklage destaca como lo mejor de un extravagante musical que nunca logra estar a su altura",
+        "puntaje": 2
+    },
+    {
+        "id_pelicula": 25,
+        "id_usuario": 2,
+        "comentario": "Definitivamente una de las mejores peliculas de spiderman que he visto. Artistica y narrativamente es HERMOSA",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 26,
+        "id_usuario": 4,
+        "comentario": "esta es la mejor de la saga, eso no esta a discusión, la accion es fantastica, la batalla de hoth es la mejor en toda la saga, el duelo de luke contra vader, por diooooos",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 27,
+        "id_usuario": 4,
+        "comentario": "UNA PURA OBRA MAESTRA. Un anillo para gobernar los a todos",
+        "puntaje": 5
+    },
+    {
+        "id_pelicula": 28,
+        "id_usuario": 3,
+        "comentario": "Esta es otra de esas películas de Christopher Nolan que nos hacen explotar la cabeza",
+        "puntaje": 5
+    }
+
     ],
     "directores": [
       {

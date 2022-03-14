@@ -194,7 +194,8 @@ def alta_pelicula():
         "imagen": data["imagen"],
         "trailer": data["trailer"],
         "subidapor": data["subidapor"],
-        "promedio": data["puntaje"]
+        "promedio": data["puntaje"],
+        "comentario": data["comentario"]
     }
     db["peliculas"].append(pelicula_nueva)
     return jsonify(pelicula_nueva), HTTPStatus.OK
@@ -213,7 +214,7 @@ def modificar_pelicula():
         "sinopsis": data["sinopsis"],
         "imagen": data["imagen"],
         "trailer": data["trailer"],
-        "promedio": data["promedio"]
+        "puntaje": data["puntaje"]
     }
 
     peli_index = next((index for (index, p) in enumerate(peliculas) if p["id"] == data["id"]), None)
